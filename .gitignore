@@ -1,0 +1,12 @@
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+/.elixir_ls
+erl_crash.dump
+*.ez
+yowed-*.tar
+npm-debug.log
+/assets/node_modules/
+/priv/static/
