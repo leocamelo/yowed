@@ -28,7 +28,8 @@ defmodule YowedWeb.ConnCase do
       import Plug.Conn
 
       import YowedWeb.ConnCase
-      import YowedWeb.Router.Helpers
+
+      alias YowedWeb.Router.Helpers, as: Routes
 
       @endpoint YowedWeb.Endpoint
     end

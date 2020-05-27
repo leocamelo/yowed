@@ -24,7 +24,8 @@ defmodule YowedWeb do
       import Plug.Conn
 
       import YowedWeb.Gettext
-      import YowedWeb.Router.Helpers
+
+      alias YowedWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -86,7 +87,8 @@ defmodule YowedWeb do
       import YowedWeb.ErrorHelpers
       import YowedWeb.Gettext
       # import YowedWeb.LiveHelpers
-      import YowedWeb.Router.Helpers
+
+      alias YowedWeb.Router.Helpers, as: Routes
     end
   end
 
