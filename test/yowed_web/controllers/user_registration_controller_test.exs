@@ -25,7 +25,11 @@ defmodule YowedWeb.UserRegistrationControllerTest do
 
       conn =
         post(conn, Routes.user_registration_path(conn, :create), %{
-          "user" => %{"email" => email, "password" => valid_user_password()}
+          "user" => %{
+            "email" => email,
+            "name" => valid_user_name(),
+            "password" => valid_user_password()
+          }
         })
 
       assert get_session(conn, :user_token)

@@ -3,7 +3,7 @@ defmodule Yowed.Accounts.User do
 
   @derive {Inspect, except: [:password]}
   schema "users" do
-    # field :name, :string
+    field :name, :string
     field :email, :string
 
     field :password, :string, virtual: true
@@ -22,9 +22,16 @@ defmodule Yowed.Accounts.User do
   """
   def registration_changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:name, :email, :password])
+    |> validate_name()
     |> validate_email()
     |> validate_password()
+  end
+
+  defp validate_name(changeset) do
+    changeset
+    |> validate_required([:name])
+    |> validate_length(:name, max: 160)
   end
 
   defp validate_email(changeset) do
