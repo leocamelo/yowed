@@ -11,14 +11,40 @@ defmodule YowedWeb.Router do
 
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-  end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+    plug :fetch_current_user
   end
 
   scope "/", YowedWeb do
-    pipe_through :browser
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    get "/signup", UserRegistrationController, :new
+    post "/signup", UserRegistrationController, :create
+
+    get "/login", UserSessionController, :new
+    post "/login", UserSessionController, :create
+
+    get "/reset_password", UserResetPasswordController, :new
+    post "/reset_password", UserResetPasswordController, :create
+
+    get "/reset_password/:token", UserResetPasswordController, :edit
+    put "/reset_password/:token", UserResetPasswordController, :update
+  end
+
+  scope "/", YowedWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/", PageController, :index
+
+    get "/settings", UserSettingsController, :edit
+    put "/settings/update_password", UserSettingsController, :update_password
+    put "/settings/update_email", UserSettingsController, :update_email
+  end
+
+  scope "/", YowedWeb do
+    pipe_through [:browser]
+
+    delete "/logout", UserSessionController, :delete
   end
 
   if Mix.env() in [:dev, :test] do
