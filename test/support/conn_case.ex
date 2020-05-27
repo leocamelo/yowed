@@ -27,6 +27,7 @@ defmodule YowedWeb.ConnCase do
       import Phoenix.ConnTest
       import Plug.Conn
 
+      import Yowed.Factory
       import YowedWeb.ConnCase
 
       alias YowedWeb.Router.Helpers, as: Routes

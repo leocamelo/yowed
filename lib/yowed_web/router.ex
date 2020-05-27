@@ -34,11 +34,15 @@ defmodule YowedWeb.Router do
   scope "/", YowedWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/", PageController, :index
-
     get "/settings", UserSettingsController, :edit
     put "/settings/update_password", UserSettingsController, :update_password
     put "/settings/update_email", UserSettingsController, :update_email
+
+    live "/", ProjectLive.Index, :index
+    live "/new", ProjectLive.Index, :new
+
+    live "/:id", ProjectLive.Show, :show
+    live "/:id/edit", ProjectLive.Show, :edit
   end
 
   scope "/", YowedWeb do

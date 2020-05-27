@@ -27,7 +27,7 @@ defmodule Yowed.DataCase do
       import Ecto
       import Ecto.{Changeset, Query}
 
-      import Yowed.DataCase
+      import Yowed.{DataCase, Factory}
     end
   end
 

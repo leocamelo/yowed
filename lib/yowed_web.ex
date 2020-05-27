@@ -88,7 +88,7 @@ defmodule YowedWeb do
 
       import YowedWeb.ErrorHelpers
       import YowedWeb.Gettext
-      # import YowedWeb.LiveHelpers
+      import YowedWeb.LiveHelpers
 
       alias YowedWeb.Router.Helpers, as: Routes
     end

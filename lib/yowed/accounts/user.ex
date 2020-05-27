@@ -1,6 +1,8 @@
 defmodule Yowed.Accounts.User do
   use Yowed, :schema
 
+  alias Yowed.Crafts.Project
+
   @derive {Inspect, except: [:password]}
   schema "users" do
     field :name, :string
@@ -8,6 +10,8 @@ defmodule Yowed.Accounts.User do
 
     field :password, :string, virtual: true
     field :hashed_password, :string
+
+    has_many(:projects, Project)
 
     timestamps()
   end

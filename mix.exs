@@ -41,6 +41,7 @@ defmodule Yowed.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:ex_machina, "~> 2.4", only: :test},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
