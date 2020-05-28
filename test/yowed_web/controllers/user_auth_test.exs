@@ -3,7 +3,6 @@ defmodule YowedWeb.UserAuthTest do
 
   alias Yowed.Accounts
   alias YowedWeb.UserAuth
-  import Yowed.AccountsFixtures
 
   setup %{conn: conn} do
     conn =
@@ -11,7 +10,7 @@ defmodule YowedWeb.UserAuthTest do
       |> Map.replace!(:secret_key_base, YowedWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
-    %{user: user_fixture(), conn: conn}
+    %{user: insert(:user), conn: conn}
   end
 
   describe "login_user/3" do

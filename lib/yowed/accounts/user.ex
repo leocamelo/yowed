@@ -100,7 +100,6 @@ defmodule Yowed.Accounts.User do
 
   def valid_password?(_, _) do
     Bcrypt.no_user_verify()
-    false
   end
 
   @doc """

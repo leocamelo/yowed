@@ -7,7 +7,8 @@ defmodule YowedWeb.ProjectLive.Index do
   @impl true
   def mount(_params, session, socket) do
     socket = assign_defaults(socket, session)
-    {:ok, assign(socket, projects: Crafts.list_projects(socket.assigns.current_user))}
+    projects = Crafts.list_projects(socket.assigns.current_user)
+    {:ok, assign(socket, :projects, projects)}
   end
 
   @impl true

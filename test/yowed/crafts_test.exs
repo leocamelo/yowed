@@ -12,14 +12,14 @@ defmodule Yowed.CraftsTest do
 
     test "list_projects/1 returns all projects" do
       project = insert(:project)
-      project_without_user = project |> Repo.unload(:user)
+      project_without_user = project |> unload_assoc(:user)
 
       assert Crafts.list_projects(project.user) == [project_without_user]
     end
 
     test "get_project!/2 returns the project with given id" do
       project = insert(:project)
-      project_without_user = project |> Repo.unload(:user)
+      project_without_user = project |> unload_assoc(:user)
 
       assert Crafts.get_project!(project.user, project.id) == project_without_user
     end
@@ -49,7 +49,7 @@ defmodule Yowed.CraftsTest do
       project = insert(:project)
 
       assert {:error, %Ecto.Changeset{}} = Crafts.update_project(project, @invalid_attrs)
-      assert Repo.unload(project, :user) == Crafts.get_project!(project.user, project.id)
+      assert unload_assoc(project, :user) == Crafts.get_project!(project.user, project.id)
     end
 
     test "delete_project/1 deletes the project" do

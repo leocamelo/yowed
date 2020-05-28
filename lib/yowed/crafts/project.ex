@@ -15,7 +15,8 @@ defmodule Yowed.Crafts.Project do
   def changeset(project, attrs) do
     project
     |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> validate_required([:user_id, :name])
     |> unique_constraint([:user_id, :name])
+    |> assoc_constraint(:user)
   end
 end

@@ -4,12 +4,19 @@ defmodule Yowed.Factory do
   alias Yowed.Accounts.User
   alias Yowed.Crafts.Project
 
-  def user_factory do
-    %User{
+  def user_factory(attrs) do
+    hashed_password =
+      attrs
+      |> Map.get(:password, "ultrasecretpassword")
+      |> Bcrypt.hash_pwd_salt()
+
+    user = %User{
       name: "Sophie",
       email: sequence(:user_email, &"sophie#{&1}@example.com"),
-      hashed_password: "ultrasecretpassword"
+      hashed_password: hashed_password
     }
+
+    merge_attributes(user, Map.delete(attrs, :password))
   end
 
   def project_factory do

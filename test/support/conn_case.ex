@@ -55,7 +55,7 @@ defmodule YowedWeb.ConnCase do
   test context.
   """
   def register_and_login_user(%{conn: conn}) do
-    user = Yowed.AccountsFixtures.user_fixture()
+    user = Yowed.Factory.insert(:user)
     %{conn: login_user(conn, user), user: user}
   end
 

@@ -1,16 +1,18 @@
 defmodule YowedWeb.UserSessionControllerTest do
   use YowedWeb.ConnCase, async: true
 
-  import Yowed.AccountsFixtures
-
   setup do
-    %{user: user_fixture()}
+    password = "ultrasecretpassword"
+    user = insert(:user, password: password)
+
+    %{user: user, password: password}
   end
 
   describe "GET /login" do
     test "renders login page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
+
       assert response =~ "<h1>Login</h1>"
       assert response =~ "Login</a>"
       assert response =~ "Register</a>"
@@ -23,10 +25,10 @@ defmodule YowedWeb.UserSessionControllerTest do
   end
 
   describe "POST /login" do
-    test "logs the user in", %{conn: conn, user: user} do
+    test "logs the user in", %{conn: conn, user: user, password: password} do
       conn =
         post(conn, Routes.user_session_path(conn, :create), %{
-          "user" => %{"email" => user.email, "password" => valid_user_password()}
+          "user" => %{"email" => user.email, "password" => password}
         })
 
       assert get_session(conn, :user_token)
@@ -35,19 +37,16 @@ defmodule YowedWeb.UserSessionControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
+
       assert response =~ user.email
       assert response =~ "Settings</a>"
       assert response =~ "Logout</a>"
     end
 
-    test "logs the user in with remember me", %{conn: conn, user: user} do
+    test "logs the user in with remember me", %{conn: conn, user: user, password: password} do
       conn =
         post(conn, Routes.user_session_path(conn, :create), %{
-          "user" => %{
-            "email" => user.email,
-            "password" => valid_user_password(),
-            "remember_me" => "true"
-          }
+          "user" => %{"email" => user.email, "password" => password, "remember_me" => "true"}
         })
 
       assert conn.resp_cookies["user_remember_me"]

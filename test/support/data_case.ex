@@ -56,4 +56,16 @@ defmodule Yowed.DataCase do
       end)
     end)
   end
+
+  @doc false
+  def unload_assoc(struct, field, cardinality \\ :one) do
+    %{
+      struct
+      | field => %Ecto.Association.NotLoaded{
+          __field__: field,
+          __owner__: struct.__struct__,
+          __cardinality__: cardinality
+        }
+    }
+  end
 end

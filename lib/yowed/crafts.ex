@@ -18,9 +18,7 @@ defmodule Yowed.Crafts do
 
   """
   def list_projects(%User{} = user) do
-    user
-    |> Ecto.assoc(:projects)
-    |> Repo.all()
+    Repo.all(from p in Project, where: p.user_id == ^user.id)
   end
 
   @doc """
@@ -38,9 +36,7 @@ defmodule Yowed.Crafts do
 
   """
   def get_project!(%User{} = user, id) do
-    user
-    |> Ecto.assoc(:projects)
-    |> Repo.get!(id)
+    Repo.get_by!(Project, user_id: user.id, id: id)
   end
 
   @doc """
@@ -56,8 +52,7 @@ defmodule Yowed.Crafts do
 
   """
   def create_project(%User{} = user, attrs \\ %{}) do
-    user
-    |> Ecto.build_assoc(:projects)
+    %Project{user_id: user.id}
     |> Project.changeset(attrs)
     |> Repo.insert()
   end

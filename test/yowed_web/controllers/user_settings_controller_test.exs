@@ -2,7 +2,6 @@ defmodule YowedWeb.UserSettingsControllerTest do
   use YowedWeb.ConnCase, async: true
 
   alias Yowed.Accounts
-  import Yowed.AccountsFixtures
 
   setup :register_and_login_user
 
@@ -24,7 +23,7 @@ defmodule YowedWeb.UserSettingsControllerTest do
     test "updates the user password and resets tokens", %{conn: conn, user: user} do
       new_password_conn =
         put(conn, Routes.user_settings_path(conn, :update_password), %{
-          "current_password" => valid_user_password(),
+          "current_password" => "ultrasecretpassword",
           "user" => %{
             "password" => "new valid password",
             "password_confirmation" => "new valid password"
@@ -60,11 +59,11 @@ defmodule YowedWeb.UserSettingsControllerTest do
   describe "PUT /settings/update_email" do
     @tag :capture_log
     test "updates the user email", %{conn: conn, user: user} do
-      new_email = unique_user_email()
+      new_email = params_for(:user).email
 
       conn =
         put(conn, Routes.user_settings_path(conn, :update_email), %{
-          "current_password" => valid_user_password(),
+          "current_password" => "ultrasecretpassword",
           "user" => %{"email" => new_email}
         })
 

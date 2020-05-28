@@ -1,8 +1,6 @@
 defmodule YowedWeb.UserRegistrationControllerTest do
   use YowedWeb.ConnCase, async: true
 
-  import Yowed.AccountsFixtures
-
   describe "GET /signup" do
     test "renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))
@@ -13,7 +11,7 @@ defmodule YowedWeb.UserRegistrationControllerTest do
     end
 
     test "redirects if already logged in", %{conn: conn} do
-      conn = conn |> login_user(user_fixture()) |> get(Routes.user_registration_path(conn, :new))
+      conn = conn |> login_user(insert(:user)) |> get(Routes.user_registration_path(conn, :new))
       assert redirected_to(conn) == "/"
     end
   end
@@ -21,14 +19,14 @@ defmodule YowedWeb.UserRegistrationControllerTest do
   describe "POST /signup" do
     @tag :capture_log
     test "creates account and logs the user in", %{conn: conn} do
-      email = unique_user_email()
+      params = params_for(:user)
 
       conn =
         post(conn, Routes.user_registration_path(conn, :create), %{
           "user" => %{
-            "email" => email,
-            "name" => valid_user_name(),
-            "password" => valid_user_password()
+            "email" => params.email,
+            "name" => params.name,
+            "password" => "ultrasecretpassword"
           }
         })
 
@@ -38,7 +36,8 @@ defmodule YowedWeb.UserRegistrationControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
-      assert response =~ email
+
+      assert response =~ params.email
       assert response =~ "Settings</a>"
       assert response =~ "Logout</a>"
     end

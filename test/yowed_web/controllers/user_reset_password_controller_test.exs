@@ -1,12 +1,10 @@
 defmodule YowedWeb.UserResetPasswordControllerTest do
   use YowedWeb.ConnCase, async: true
 
-  alias Yowed.Accounts
-  alias Yowed.Repo
-  import Yowed.AccountsFixtures
+  alias Yowed.{Accounts, Repo}
 
   setup do
-    %{user: user_fixture()}
+    %{user: insert(:user)}
   end
 
   describe "GET /reset_password" do
@@ -44,10 +42,10 @@ defmodule YowedWeb.UserResetPasswordControllerTest do
 
   describe "GET /reset_password/:token" do
     setup %{user: user} do
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_user_reset_password_instructions(user, url)
-        end)
+      {:ok, response} =
+        Accounts.deliver_user_reset_password_instructions(user, &"[TOKEN]#{&1}[TOKEN]")
+
+      [_, token, _] = String.split(response.body, "[TOKEN]")
 
       %{token: token}
     end
@@ -66,10 +64,10 @@ defmodule YowedWeb.UserResetPasswordControllerTest do
 
   describe "PUT /reset_password/:token" do
     setup %{user: user} do
-      token =
-        extract_user_token(fn url ->
-          Accounts.deliver_user_reset_password_instructions(user, url)
-        end)
+      {:ok, response} =
+        Accounts.deliver_user_reset_password_instructions(user, &"[TOKEN]#{&1}[TOKEN]")
+
+      [_, token, _] = String.split(response.body, "[TOKEN]")
 
       %{token: token}
     end
