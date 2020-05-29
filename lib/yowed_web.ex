@@ -73,14 +73,6 @@ defmodule YowedWeb do
     end
   end
 
-  def channel do
-    quote do
-      use Phoenix.Channel
-
-      import YowedWeb.Gettext
-    end
-  end
-
   defp view_helpers do
     quote do
       use Phoenix.HTML
@@ -88,9 +80,7 @@ defmodule YowedWeb do
       import Phoenix.LiveView.Helpers
       import Phoenix.View
 
-      import YowedWeb.ErrorHelpers
-      import YowedWeb.Gettext
-      import YowedWeb.LiveHelpers
+      import YowedWeb.{ErrorHelpers, Gettext, LiveHelpers}
 
       alias YowedWeb.Router.Helpers, as: Routes
     end

@@ -28,7 +28,6 @@ defmodule Yowed.AccountsTest do
     test "returns the user if the email and password are valid" do
       password = "ultrasecretpassword"
       %{id: id} = user = insert(:user, password: password)
-
       assert %User{id: ^id} = Accounts.get_user_by_email_and_password(user.email, password)
     end
   end
@@ -58,11 +57,11 @@ defmodule Yowed.AccountsTest do
     end
 
     test "validates email and password when given" do
-      {:error, changeset} = Accounts.register_user(%{email: "not valid", password: "not valid"})
+      {:error, changeset} = Accounts.register_user(%{email: "invalid", password: "invalid"})
 
       assert %{
                email: ["must have the @ sign and no spaces"],
-               password: ["should be at least 12 character(s)"]
+               password: ["should be at least 8 character(s)"]
              } = errors_on(changeset)
     end
 
@@ -128,23 +127,18 @@ defmodule Yowed.AccountsTest do
 
     test "validates email", %{user: user, password: password} do
       {:error, changeset} = Accounts.update_user_email(user, password, %{email: "not valid"})
-
       assert %{email: ["must have the @ sign and no spaces"]} = errors_on(changeset)
     end
 
-    test "validates maximum value for e-mail for security", %{user: user, password: password} do
+    test "validates maximum value for email for security", %{user: user, password: password} do
       too_long = String.duplicate("db", 100)
-
       {:error, changeset} = Accounts.update_user_email(user, password, %{email: too_long})
-
       assert "should be at most 160 character(s)" in errors_on(changeset).email
     end
 
-    test "validates e-mail uniqueness", %{user: user, password: password} do
+    test "validates email uniqueness", %{user: user, password: password} do
       %{email: email} = insert(:user)
-
       {:error, changeset} = Accounts.update_user_email(user, password, %{email: email})
-
       assert "has already been taken" in errors_on(changeset).email
     end
 
@@ -155,11 +149,9 @@ defmodule Yowed.AccountsTest do
       assert %{current_password: ["is not valid"]} = errors_on(changeset)
     end
 
-    test "updates the e-mail", %{user: user, password: password, email: email} do
+    test "updates the email", %{user: user, password: password, email: email} do
       {:ok, _updated_user} = Accounts.update_user_email(user, password, %{email: email})
-
       updated_user = Repo.get!(User, user.id)
-
       assert updated_user.email != user.email
       assert updated_user.email == email
     end
@@ -183,21 +175,19 @@ defmodule Yowed.AccountsTest do
     test "validates password", %{user: user, password: password} do
       {:error, changeset} =
         Accounts.update_user_password(user, password, %{
-          password: "not valid",
+          password: "invalid",
           password_confirmation: "another"
         })
 
       assert %{
-               password: ["should be at least 12 character(s)"],
+               password: ["should be at least 8 character(s)"],
                password_confirmation: ["does not match password"]
              } = errors_on(changeset)
     end
 
     test "validates maximum values for password for security", %{user: user, password: password} do
       too_long = String.duplicate("db", 100)
-
       {:error, changeset} = Accounts.update_user_password(user, password, %{password: too_long})
-
       assert "should be at most 80 character(s)" in errors_on(changeset).password
     end
 
@@ -218,9 +208,7 @@ defmodule Yowed.AccountsTest do
 
     test "deletes all tokens for the given user", %{user: user, password: password} do
       _ = Accounts.generate_user_session_token(user)
-
       {:ok, _} = Accounts.update_user_password(user, password, %{password: "new valid password"})
-
       refute Repo.get_by(UserToken, user_id: user.id)
     end
   end
@@ -338,12 +326,12 @@ defmodule Yowed.AccountsTest do
     test "validates password", %{user: user} do
       {:error, changeset} =
         Accounts.reset_user_password(user, %{
-          password: "not valid",
+          password: "invalid",
           password_confirmation: "another"
         })
 
       assert %{
-               password: ["should be at least 12 character(s)"],
+               password: ["should be at least 8 character(s)"],
                password_confirmation: ["does not match password"]
              } = errors_on(changeset)
     end

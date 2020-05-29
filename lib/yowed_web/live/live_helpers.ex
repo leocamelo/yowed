@@ -4,6 +4,7 @@ defmodule YowedWeb.LiveHelpers do
 
   alias Yowed.Accounts
 
+  @doc false
   def assign_defaults(socket, %{"user_token" => user_token}) do
     assign_new(socket, :current_user, fn ->
       Accounts.get_user_by_session_token(user_token)

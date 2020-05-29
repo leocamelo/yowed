@@ -5,9 +5,11 @@ defmodule YowedWeb.UserAuthTest do
   alias YowedWeb.UserAuth
 
   setup %{conn: conn} do
+    secret_key_base = YowedWeb.Endpoint.config(:secret_key_base)
+
     conn =
       conn
-      |> Map.replace!(:secret_key_base, YowedWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, secret_key_base)
       |> init_test_session(%{})
 
     %{user: insert(:user), conn: conn}

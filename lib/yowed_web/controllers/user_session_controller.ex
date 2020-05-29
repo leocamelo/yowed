@@ -16,7 +16,7 @@ defmodule YowedWeb.UserSessionController do
     else
       conn
       |> assign_page_title()
-      |> render("new.html", error_message: "Invalid e-mail or password")
+      |> render("new.html", error_message: "Invalid email or password")
     end
   end
 

@@ -47,7 +47,7 @@ defmodule Yowed.Accounts.UserToken do
   @doc """
   Builds a token with a hashed counter part.
 
-  The non-hashed token is sent to the user e-mail while the
+  The non-hashed token is sent to the user email while the
   hashed part is stored in the database, to avoid reconstruction.
   The token is valid for a week as long as users don't change
   their email.

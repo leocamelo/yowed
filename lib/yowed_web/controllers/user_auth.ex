@@ -40,9 +40,7 @@ defmodule YowedWeb.UserAuth do
     put_resp_cookie(conn, @remember_me_cookie, token, @remember_me_options)
   end
 
-  defp maybe_write_remember_me_cookie(conn, _token, _params) do
-    conn
-  end
+  defp maybe_write_remember_me_cookie(conn, _token, _params), do: conn
 
   # This function renews the session ID and erases the whole
   # session to avoid fixation attacks. If there is any data
@@ -124,7 +122,7 @@ defmodule YowedWeb.UserAuth do
   @doc """
   Used for routes that require the user to be authenticated.
 
-  If you want to enforce the user e-mail is confirmed before
+  If you want to enforce the user email is confirmed before
   they use the application at all, here would be a good place.
   """
   def require_authenticated_user(conn, _opts) do

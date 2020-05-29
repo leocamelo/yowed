@@ -24,7 +24,7 @@ defmodule YowedWeb.UserResetPasswordControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your e-mail is in our system"
+      assert get_flash(conn, :info) =~ "If your email is in our system"
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context == "reset_password"
     end
 
@@ -35,7 +35,7 @@ defmodule YowedWeb.UserResetPasswordControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your e-mail is in our system"
+      assert get_flash(conn, :info) =~ "If your email is in our system"
       assert Repo.all(Accounts.UserToken) == []
     end
   end
@@ -91,14 +91,14 @@ defmodule YowedWeb.UserResetPasswordControllerTest do
       conn =
         put(conn, Routes.user_reset_password_path(conn, :update, token), %{
           "user" => %{
-            "password" => "too short",
+            "password" => "short",
             "password_confirmation" => "does not match"
           }
         })
 
       response = html_response(conn, 200)
       assert response =~ ">Reset your password</h1>"
-      assert response =~ "should be at least 12 character(s)"
+      assert response =~ "should be at least 8 character(s)"
       assert response =~ "does not match password"
     end
 

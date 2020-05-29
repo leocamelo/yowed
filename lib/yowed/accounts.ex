@@ -91,7 +91,7 @@ defmodule Yowed.Accounts do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for changing the user e-mail.
+  Returns an `%Ecto.Changeset{}` for changing the user email.
 
   ## Examples
 
@@ -104,7 +104,7 @@ defmodule Yowed.Accounts do
   end
 
   @doc """
-  Updates the user e-mail.
+  Updates the user email.
   """
   def update_user_email(user, password, attrs) do
     user
@@ -180,7 +180,7 @@ defmodule Yowed.Accounts do
   end
 
   @doc """
-  Delivers the reset password e-mail to the given user.
+  Delivers the reset password email to the given user.
 
   ## Examples
 

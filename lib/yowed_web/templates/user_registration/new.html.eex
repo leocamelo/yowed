@@ -21,7 +21,7 @@
         <%= render SharedView, "_user_field_password.html", f: f %>
 
         <div class="field has-text-grey">
-          <p>12 characters minimum</p>
+          <p>8 characters minimum</p>
         </div>
 
         <div class="field">

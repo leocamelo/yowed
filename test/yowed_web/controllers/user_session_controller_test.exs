@@ -58,7 +58,7 @@ defmodule YowedWeb.UserSessionControllerTest do
 
       response = html_response(conn, 200)
       assert response =~ ">Log In</h1>"
-      assert response =~ "Invalid e-mail or password"
+      assert response =~ "Invalid email or password"
     end
   end
 
