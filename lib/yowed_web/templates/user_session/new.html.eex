@@ -1,27 +1,50 @@
-<h1>Login</h1>
-
-<%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user], fn f -> %>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
+<div class="columns is-centered">
+  <div class="column is-one-third">
+    <div class="hero is-small">
+      <div class="hero-body has-text-centered">
+        <%= img_tag Routes.static_path(@conn, "/images/yowed-brand-indigo.svg"), width: 150, height: 50 %>
+      </div>
     </div>
-  <% end %>
 
-  <%= label f, :email %>
-  <%= text_input f, :email, required: true %>
+    <div class="box">
+      <h1 class="title">Log In</h1>
 
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
+      <%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user], fn f -> %>
+        <%= if @error_message do %>
+          <div class="notification is-danger is-small">
+            <%= @error_message %>
+          </div>
+        <% end %>
 
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
-  <%= checkbox f, :remember_me %>
+        <%= render SharedView, "_user_field_email.html", f: f %>
+        <%= render SharedView, "_user_field_password.html", f: f %>
 
-  <div>
-    <%= submit "Login" %>
+        <div class="field">
+          <div class="control">
+            <label class="checkbox is-unselectable">
+              <%= checkbox f, :remember_me %>
+              Remember me
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <%= submit "Log In", class: "button is-link is-fullwidth" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="content has-text-grey">
+      <p>
+        Don't have an account?
+        <%= link "Sign up now", to: Routes.user_registration_path(@conn, :new) %>
+      </p>
+      <p>
+        Can't log in?
+        <%= link "Reset your password", to: Routes.user_reset_password_path(@conn, :new) %>
+      </p>
+    </div>
   </div>
-<% end %>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+</div>

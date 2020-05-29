@@ -7,7 +7,7 @@ defmodule YowedWeb.UserRegistrationController do
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})
-    render(conn, "new.html", changeset: changeset)
+    conn |> assign_page_title() |> render("new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -18,7 +18,13 @@ defmodule YowedWeb.UserRegistrationController do
         |> UserAuth.login_user(user)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> assign_page_title()
+        |> render("new.html", changeset: changeset)
     end
+  end
+
+  defp assign_page_title(conn) do
+    assign(conn, :page_title, "Sign Up")
   end
 end

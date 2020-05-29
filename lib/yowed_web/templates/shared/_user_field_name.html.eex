@@ -1,0 +1,11 @@
+<div class="field">
+  <%= label @f, :name, class: "label" %>
+  <div class="control">
+    <%= text_input @f, :name,
+      required: true,
+      class: "input",
+      placeholder: "Your cute nickname" %>
+
+    <%= error_tag @f, :name %>
+  </div>
+</div>

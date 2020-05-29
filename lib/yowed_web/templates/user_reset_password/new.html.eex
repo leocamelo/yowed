@@ -1,15 +1,30 @@
-<h1>Forgot your password?</h1>
+<div class="columns is-centered">
+  <div class="column is-one-third">
+    <div class="hero is-small">
+      <div class="hero-body has-text-centered">
+        <%= img_tag Routes.static_path(@conn, "/images/yowed-brand-indigo.svg"), width: 150, height: 50 %>
+      </div>
+    </div>
 
-<%= form_for :user, Routes.user_reset_password_path(@conn, :create), fn f -> %>
-  <%= label f, :email %>
-  <%= text_input f, :email, required: true %>
+    <div class="box">
+      <h1 class="title">Forgot your password?</h1>
 
-  <div>
-    <%= submit "Send instructions to reset password" %>
+      <%= form_for :user, Routes.user_reset_password_path(@conn, :create), fn f -> %>
+        <%= render SharedView, "_user_field_email.html", f: f %>
+
+        <div class="field">
+          <div class="control">
+            <%= submit "Reset password", class: "button is-link is-fullwidth" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="content has-text-grey">
+      <p>
+        Remember your password?
+        <%= link "Log in here", to: Routes.user_session_path(@conn, :new) %>
+      </p>
+    </div>
   </div>
-<% end %>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Login", to: Routes.user_session_path(@conn, :new) %>
-</p>
+</div>

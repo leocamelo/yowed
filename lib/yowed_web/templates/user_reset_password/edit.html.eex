@@ -1,26 +1,43 @@
-<h1>Reset password</h1>
-
-<%= form_for @changeset, Routes.user_reset_password_path(@conn, :update, @token), fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<div class="columns is-centered">
+  <div class="column is-one-third">
+    <div class="hero is-small">
+      <div class="hero-body has-text-centered">
+        <%= img_tag Routes.static_path(@conn, "/images/yowed-brand-indigo.svg"), width: 150, height: 50 %>
+      </div>
     </div>
-  <% end %>
 
-  <%= label f, :password, "New password" %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
+    <div class="box">
+      <h1 class="title">Reset your password</h1>
 
-  <%= label f, :password_confirmation, "Confirm new password" %>
-  <%= password_input f, :password_confirmation, required: true %>
-  <%= error_tag f, :password_confirmation %>
+      <%= form_for @changeset, Routes.user_reset_password_path(@conn, :update, @token), fn f -> %>
+        <%= if @changeset.action do %>
+          <div class="notification is-danger">
+            Oops, something went wrong! Please check the errors below.
+          </div>
+        <% end %>
 
-  <div>
-    <%= submit "Reset password" %>
+        <div class="field">
+          <%= label f, :password, "New password", class: "label" %>
+          <div class="control">
+            <%= password_input f, :password, required: true, class: "input" %>
+            <%= error_tag f, :password %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label f, :password_confirmation, "Confirm new password", class: "label" %>
+          <div class="control">
+            <%= password_input f, :password_confirmation, required: true, class: "input" %>
+            <%= error_tag f, :password_confirmation %>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <%= submit "Reset password", class: "button is-link is-fullwidth" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
-
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Login", to: Routes.user_session_path(@conn, :new) %>
-</p>
+</div>

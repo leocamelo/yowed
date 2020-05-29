@@ -1,11 +1,25 @@
-<main role="main" class="container">
-  <p class="alert alert-info" role="alert"
-    phx-click="lv:clear-flash"
-    phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+<%= render "_menu.html", assigns %>
 
-  <p class="alert alert-danger" role="alert"
-    phx-click="lv:clear-flash"
-    phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+<section class="section">
+  <div class="container">
+    <%= if info = live_flash(@flash, :info) do %>
+      <div class="notification is-info" role="alert">
+        <button type="button" class="delete"
+          phx-click="lv:clear-flash"
+          phx-value-key="info"></button>
+        <%= info %>
+      </div>
+    <% end %>
 
-  <%= @inner_content %>
-</main>
+    <%= if error = live_flash(@flash, :error) do %>
+      <div class="notification is-danger" role="alert">
+        <button type="button" class="delete"
+          phx-click="lv:clear-flash"
+          phx-value-key="error"></button>
+        <%= error %>
+      </div>
+    <% end %>
+
+    <%= @inner_content %>
+  </div>
+</section>

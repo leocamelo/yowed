@@ -12,10 +12,7 @@ defmodule YowedWeb.UserSessionControllerTest do
     test "renders login page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
-
-      assert response =~ "<h1>Login</h1>"
-      assert response =~ "Login</a>"
-      assert response =~ "Register</a>"
+      assert response =~ ">Log In</h1>"
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
@@ -39,8 +36,8 @@ defmodule YowedWeb.UserSessionControllerTest do
       response = html_response(conn, 200)
 
       assert response =~ user.email
-      assert response =~ "Settings</a>"
-      assert response =~ "Logout</a>"
+      assert response =~ ">Account</a>"
+      assert response =~ ">Log Out</a>"
     end
 
     test "logs the user in with remember me", %{conn: conn, user: user, password: password} do
@@ -60,7 +57,7 @@ defmodule YowedWeb.UserSessionControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Login</h1>"
+      assert response =~ ">Log In</h1>"
       assert response =~ "Invalid e-mail or password"
     end
   end
@@ -68,14 +65,14 @@ defmodule YowedWeb.UserSessionControllerTest do
   describe "DELETE /logout" do
     test "logs the user out", %{conn: conn, user: user} do
       conn = conn |> login_user(user) |> delete(Routes.user_session_path(conn, :delete))
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == "/login"
       refute get_session(conn, :user_token)
       assert get_flash(conn, :info) =~ "Logged out successfully"
     end
 
     test "succeeds even if the user is not logged in", %{conn: conn} do
       conn = delete(conn, Routes.user_session_path(conn, :delete))
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == "/login"
       refute get_session(conn, :user_token)
       assert get_flash(conn, :info) =~ "Logged out successfully"
     end

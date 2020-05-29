@@ -5,7 +5,7 @@ defmodule YowedWeb.UserSessionController do
   alias YowedWeb.UserAuth
 
   def new(conn, _params) do
-    render(conn, "new.html", error_message: nil)
+    conn |> assign_page_title() |> render("new.html", error_message: nil)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -14,7 +14,9 @@ defmodule YowedWeb.UserSessionController do
     if user = Accounts.get_user_by_email_and_password(email, password) do
       UserAuth.login_user(conn, user, user_params)
     else
-      render(conn, "new.html", error_message: "Invalid e-mail or password")
+      conn
+      |> assign_page_title()
+      |> render("new.html", error_message: "Invalid e-mail or password")
     end
   end
 
@@ -22,5 +24,9 @@ defmodule YowedWeb.UserSessionController do
     conn
     |> put_flash(:info, "Logged out successfully.")
     |> UserAuth.logout_user()
+  end
+
+  defp assign_page_title(conn) do
+    assign(conn, :page_title, "Log In")
   end
 end
