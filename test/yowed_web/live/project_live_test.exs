@@ -21,7 +21,7 @@ defmodule YowedWeb.ProjectLiveTest do
         |> login_user(project.user)
         |> live(Routes.project_index_path(conn, :index))
 
-      assert html =~ "Listing Projects"
+      assert html =~ ">Select a project to work on</h1>"
       assert html =~ project.name
     end
 
@@ -30,8 +30,8 @@ defmodule YowedWeb.ProjectLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.project_index_path(conn, :index))
 
       assert index_live
-             |> element("a", "New Project")
-             |> render_click() =~ "New Project"
+             |> element("a", "create a new one")
+             |> render_click() =~ "New project"
 
       assert_patch(index_live, Routes.project_index_path(conn, :new))
 
@@ -43,7 +43,7 @@ defmodule YowedWeb.ProjectLiveTest do
         index_live
         |> form("#project-form", project: @create_attrs)
         |> render_submit()
-        |> follow_redirect(conn, Routes.project_index_path(conn, :index))
+        |> follow_redirect(conn)
 
       assert html =~ "Project created successfully"
       assert html =~ "some name"
@@ -59,8 +59,7 @@ defmodule YowedWeb.ProjectLiveTest do
         |> login_user(project.user)
         |> live(Routes.project_show_path(conn, :show, project))
 
-      assert html =~ "Show Project"
-      assert html =~ project.name
+      assert html =~ ">#{project.name}</h1>"
     end
 
     test "updates project within modal", %{conn: conn, project: project} do
@@ -68,8 +67,8 @@ defmodule YowedWeb.ProjectLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.project_show_path(conn, :show, project))
 
       assert show_live
-             |> element("a", "Edit")
-             |> render_click() =~ "Edit Project"
+             |> element("a", "Edit project")
+             |> render_click() =~ "Edit project"
 
       assert_patch(show_live, Routes.project_show_path(conn, :edit, project))
 

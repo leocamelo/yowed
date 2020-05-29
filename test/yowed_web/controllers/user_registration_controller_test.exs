@@ -35,8 +35,8 @@ defmodule YowedWeb.UserRegistrationControllerTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
 
-      assert response =~ params.email
-      assert response =~ ">Account</a>"
+      assert response =~ params.name
+      assert response =~ ">Edit Account</a>"
       assert response =~ ">Log Out</a>"
     end
 

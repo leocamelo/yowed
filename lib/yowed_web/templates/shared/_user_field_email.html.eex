@@ -5,7 +5,6 @@
       required: true,
       class: "input",
       placeholder: "you@yourcrew" %>
-
-    <%= error_tag @f, :email %>
   </div>
+  <%= error_tag @f, :email %>
 </div>

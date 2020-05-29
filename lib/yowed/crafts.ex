@@ -18,7 +18,7 @@ defmodule Yowed.Crafts do
 
   """
   def list_projects(%User{} = user) do
-    Repo.all(from p in Project, where: p.user_id == ^user.id)
+    Repo.all(from p in Project, where: p.user_id == ^user.id, order_by: p.inserted_at)
   end
 
   @doc """

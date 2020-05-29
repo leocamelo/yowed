@@ -14,4 +14,14 @@ NProgress.configure({ showSpinner: false });
 window.addEventListener('phx:page-loading-start', () => NProgress.start());
 window.addEventListener('phx:page-loading-stop', () => NProgress.done());
 
+window.addEventListener('phx:page-loading-stop', () => {
+  const $burger = document.querySelector('.navbar-burger');
+  const $burgerTarget = document.getElementById($burger.dataset.target);
+
+  $burger.addEventListener('click', () => {
+    $burger.classList.toggle('is-active');
+    $burgerTarget.classList.toggle('is-active');
+  });
+});
+
 liveSocket.connect();

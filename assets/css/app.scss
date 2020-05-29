@@ -1,6 +1,10 @@
 @import 'bulma';
 @import '../node_modules/nprogress/nprogress.css';
 
+body {
+  min-height: 100vh;
+}
+
 .box + .content {
   padding: 0 20px;
 }

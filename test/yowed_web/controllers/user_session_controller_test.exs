@@ -35,8 +35,8 @@ defmodule YowedWeb.UserSessionControllerTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
 
-      assert response =~ user.email
-      assert response =~ ">Account</a>"
+      assert response =~ user.name
+      assert response =~ ">Edit Account</a>"
       assert response =~ ">Log Out</a>"
     end
 

@@ -23,6 +23,7 @@ defmodule YowedWeb.LiveHelpers do
         id: @project.id || :new,
         action: @live_action,
         project: @project,
+        current_user: @current_user,
         return_to: Routes.project_index_path(@socket, :index) %>
   """
   def live_modal(socket, component, opts) do

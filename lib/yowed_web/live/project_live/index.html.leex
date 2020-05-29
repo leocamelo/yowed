@@ -1,4 +1,40 @@
-<h1>Listing Projects</h1>
+<div class="columns is-centered">
+  <div class="column is-one-third">
+    <div class="box">
+      <%= if Enum.any?(@projects) do %>
+        <h1 class="title">Select a project to work on</h1>
+
+        <div class="content">
+          <p>Or <%= live_patch "create a new one", to: Routes.project_index_path(@socket, :new) %></p>
+        </div>
+
+        <%= for project <- @projects do %>
+          <div class="field">
+            <div class="control">
+              <%= live_redirect project.name,
+                to: Routes.project_show_path(@socket, :show, project),
+                class: "button is-link is-light is-fullwidth" %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <h1 class="title">Create your first project!</h1>
+
+        <div class="content">
+          <p>Projects are like containers for your awesome email templates</p>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <%= live_patch "Create a project",
+              to: Routes.project_index_path(@socket, :new),
+              class: "button is-link is-fullwidth" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <%= if @live_action == :new do %>
   <%= live_modal @socket, YowedWeb.ProjectLive.FormComponent,
@@ -9,24 +45,3 @@
     current_user: @current_user,
     return_to: Routes.project_index_path(@socket, :index) %>
 <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="projects">
-    <%= for project <- @projects do %>
-      <tr id="project-<%= project.id %>">
-        <td><%= project.name %></td>
-        <td>
-          <span><%= live_redirect "Show", to: Routes.project_show_path(@socket, :show, project) %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<span><%= live_patch "New Project", to: Routes.project_index_path(@socket, :new) %></span>

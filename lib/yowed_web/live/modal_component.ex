@@ -15,11 +15,11 @@ defmodule YowedWeb.ModalComponent do
         <div class="box">
           <%= live_component @socket, @component, @opts %>
         </div>
+        <%= live_patch nil,
+          to: @return_to,
+          class: "modal-close is-large",
+          aria: [label: "close"] %>
       </div>
-      <%= live_patch nil,
-        to: @return_to,
-        class: "modal-close is-large",
-        aria: [label: "close"] %>
     </div>
     """
   end

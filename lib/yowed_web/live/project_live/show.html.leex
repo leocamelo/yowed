@@ -1,20 +1,20 @@
-<h1>Show Project</h1>
+<h1 class="title"><%= @project.name %></h1>
+
+<div class="content">
+  <p>Token</p>
+  <p>Messages</p>
+
+  <%= live_patch "Edit project",
+    to: Routes.project_show_path(@socket, :edit, @project),
+    class: "button" %>
+</div>
 
 <%= if @live_action == :edit do %>
   <%= live_modal @socket, YowedWeb.ProjectLive.FormComponent,
     id: @project.id,
-    title: @page_title,
+    title: "Edit project",
     action: @live_action,
     project: @project,
     current_user: @current_user,
     return_to: Routes.project_show_path(@socket, :show, @project) %>
 <% end %>
-
-<ul>
-  <li>
-    <strong>Name:</strong>
-    <%= @project.name %>
-  </li>
-</ul>
-
-<span><%= live_patch "Edit", to: Routes.project_show_path(@socket, :edit, @project), class: "button" %></span>

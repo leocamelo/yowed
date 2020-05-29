@@ -42,11 +42,11 @@ defmodule YowedWeb.ProjectLive.FormComponent do
 
   defp save_project(socket, :new, project_params) do
     case Crafts.create_project(socket.assigns.current_user, project_params) do
-      {:ok, _project} ->
+      {:ok, project} ->
         {:noreply,
          socket
          |> put_flash(:info, "Project created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> push_redirect(to: Routes.project_show_path(socket, :show, project))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

@@ -5,7 +5,6 @@
       required: true,
       class: "input",
       placeholder: "Your cute nickname" %>
-
-    <%= error_tag @f, :name %>
   </div>
+  <%= error_tag @f, :name %>
 </div>

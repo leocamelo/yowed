@@ -1,9 +1,10 @@
-<nav class="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+<nav class="navbar has-shadow is-spaced is-unselectable" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
       <%= if @project && @project.id do %>
         <%= live_redirect to: Routes.project_show_path(@socket, :show, @project), class: "navbar-item" do %>
           <%= img_tag Routes.static_path(@socket, "/images/yowed-brand-indigo.svg") %>
+          <span class="has-text-grey">&nbsp; / <%= @project.name %></span>
         <% end %>
       <% else %>
         <%= live_redirect to: Routes.project_index_path(@socket, :index), class: "navbar-item" do %>
@@ -11,13 +12,14 @@
         <% end %>
       <% end %>
 
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <a class="navbar-burger burger" role="button" aria-label="menu" aria-expanded="false" data-target="navbar">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"</span>
       </a>
     </div>
-    <div class="navbar-menu">
+
+    <div id="navbar" class="navbar-menu">
       <%= if @project && @project.id do %>
         <div class="navbar-start">
           <a class="navbar-item">
@@ -28,20 +30,27 @@
 
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link"><%= @current_user.email %></a>
+          <a class="navbar-link">
+            <%= @current_user.name %>
+          </a>
+
           <div class="navbar-dropdown">
-            <%= link "Account", to: Routes.user_settings_path(@socket, :edit), class: "navbar-item" %>
+            <%= link "Edit Account",
+              to: Routes.user_settings_path(@socket, :edit),
+              class: "navbar-item" %>
             <hr class="navbar-divider">
 
             <%= if @project && @project.id do %>
-              <%= link "Project", to: Routes.project_show_path(@socket, :show, @project), class: "navbar-item" %>
-              <hr class="navbar-divider">
-
-              <%= link "Switch project", to: Routes.project_index_path(@socket, :index), class: "navbar-item" %>
+              <%= live_redirect "Switch Project",
+                to: Routes.project_index_path(@socket, :index),
+                class: "navbar-item" %>
               <hr class="navbar-divider">
             <% end %>
 
-            <%= link "Log Out", to: Routes.user_session_path(@socket, :delete), method: :delete, class: "navbar-item" %>
+            <%= link "Log Out",
+              to: Routes.user_session_path(@socket, :delete),
+              method: :delete,
+              class: "navbar-item" %>
           </div>
         </div>
       </div>

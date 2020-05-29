@@ -9,14 +9,19 @@
   <div class="field">
     <%= label f, :name, class: "label" %>
     <div class="control">
-      <%= text_input f, :name, class: "input" %>
-      <%= error_tag f, :name %>
+      <%= text_input f, :name,
+        required: true,
+        class: "input",
+        placeholder: "yourgreatidea" %>
     </div>
+    <%= error_tag f, :name %>
   </div>
 
   <div class="field">
     <div class="control">
-      <%= submit "Save", class: "button is-link", phx_disable_with: "Saving..." %>
+      <%= submit "Save",
+        class: "button is-link is-fullwidth",
+        phx_disable_with: "Saving..." %>
     </div>
   </div>
 </form>
