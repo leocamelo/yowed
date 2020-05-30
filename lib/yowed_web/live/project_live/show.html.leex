@@ -13,7 +13,7 @@
   <%= live_modal @socket, YowedWeb.ProjectLive.FormComponent,
     id: @project.id,
     title: "Edit project",
-    action: @live_action,
+    action: :edit,
     project: @project,
     current_user: @current_user,
     return_to: Routes.project_show_path(@socket, :show, @project) %>

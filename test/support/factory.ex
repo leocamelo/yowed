@@ -2,7 +2,7 @@ defmodule Yowed.Factory do
   use ExMachina.Ecto, repo: Yowed.Repo
 
   alias Yowed.Accounts.User
-  alias Yowed.Crafts.Project
+  alias Yowed.Crafts.{Project, Template}
 
   def user_factory(attrs) do
     hashed_password =
@@ -22,7 +22,17 @@ defmodule Yowed.Factory do
   def project_factory do
     %Project{
       user: build(:user),
-      name: sequence(:project_name, &"Philosophy#{&1}")
+      name: sequence(:project_name, &"Philosophy #{&1}")
+    }
+  end
+
+  def template_factory do
+    %Template{
+      project: build(:project),
+      name: sequence(:template_name, &"Welcome email #{&1}"),
+      body: "Welcome to our philosofy class",
+      subject: "Welcome to our philosofy class",
+      from: %{name: "Sophie", email: "sophie@example.com"}
     }
   end
 end

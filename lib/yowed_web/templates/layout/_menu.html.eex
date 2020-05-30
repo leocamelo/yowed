@@ -22,9 +22,9 @@
     <div id="navbar" class="navbar-menu">
       <%= if @project && @project.id do %>
         <div class="navbar-start">
-          <a class="navbar-item">
-            Templates
-          </a>
+          <%= live_redirect "Templates",
+          to: Routes.template_index_path(@socket, :index, @project),
+          class: "navbar-item"%>
         </div>
       <% end %>
 

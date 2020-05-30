@@ -6,7 +6,7 @@ defmodule Yowed.Crafts do
   use Yowed, :context
 
   alias Yowed.Accounts.User
-  alias Yowed.Crafts.Project
+  alias Yowed.Crafts.{Project, Template}
 
   @doc """
   Returns the list of projects by user.
@@ -102,5 +102,101 @@ defmodule Yowed.Crafts do
   """
   def change_project(%Project{} = project, attrs \\ %{}) do
     Project.changeset(project, attrs)
+  end
+
+  @doc """
+  Returns the list of templates by project.
+
+  ## Examples
+
+      iex> list_templates(project)
+      [%Template{}, ...]
+
+  """
+  def list_templates(%Project{} = project) do
+    Repo.all(from t in Template, where: t.project_id == ^project.id, order_by: t.name)
+  end
+
+  @doc """
+  Gets a single template by project and id.
+
+  Raises `Ecto.NoResultsError` if the Template does not exist.
+
+  ## Examples
+
+      iex> get_template!(project, 123)
+      %Template{}
+
+      iex> get_template!(project, 456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_template!(%Project{} = project, id) do
+    Repo.get_by!(Template, project_id: project.id, id: id)
+  end
+
+  @doc """
+  Creates a template.
+
+  ## Examples
+
+      iex> create_template(project, %{field: value})
+      {:ok, %Template{}}
+
+      iex> create_template(project, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_template(%Project{} = project, attrs \\ %{}) do
+    %Template{project_id: project.id}
+    |> Template.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a template.
+
+  ## Examples
+
+      iex> update_template(template, %{field: new_value})
+      {:ok, %Template{}}
+
+      iex> update_template(template, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_template(%Template{} = template, attrs) do
+    template
+    |> Template.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a template.
+
+  ## Examples
+
+      iex> delete_template(template)
+      {:ok, %Template{}}
+
+      iex> delete_template(template)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_template(%Template{} = template) do
+    Repo.delete(template)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking template changes.
+
+  ## Examples
+
+      iex> change_template(template)
+      %Ecto.Changeset{data: %Template{}}
+
+  """
+  def change_template(%Template{} = template, attrs \\ %{}) do
+    Template.changeset(template, attrs)
   end
 end

@@ -1,5 +1,5 @@
 <div class="columns is-centered">
-  <div class="column is-one-third">
+  <div class="column is-one-third-desktop is-half-tablet">
     <div class="box">
       <%= if Enum.any?(@projects) do %>
         <h1 class="title">Select a project to work on</h1>
@@ -40,7 +40,7 @@
   <%= live_modal @socket, YowedWeb.ProjectLive.FormComponent,
     id: :new,
     title: @page_title,
-    action: @live_action,
+    action: :new,
     project: @project,
     current_user: @current_user,
     return_to: Routes.project_index_path(@socket, :index) %>

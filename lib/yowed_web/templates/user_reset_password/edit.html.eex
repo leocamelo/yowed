@@ -1,5 +1,5 @@
 <div class="columns is-centered">
-  <div class="column is-one-third">
+  <div class="column is-one-third-desktop is-half-tablet">
     <div class="hero is-small">
       <div class="hero-body has-text-centered">
         <%= img_tag Routes.static_path(@conn, "/images/yowed-brand-indigo.svg"), width: 150, height: 50 %>

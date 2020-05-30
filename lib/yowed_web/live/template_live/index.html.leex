@@ -1,0 +1,45 @@
+<div class="level">
+  <div class="level-right">
+    <div class="level-item">
+      <h1 class="title">Templates</h1>
+    </div>
+  </div>
+  <div class="level-left">
+    <div class="level-item">
+      <%= live_patch "Create a new template",
+        to: Routes.template_index_path(@socket, :new, @project),
+        class: "button is-link is-light" %>
+    </div>
+  </div>
+</div>
+
+<div class="columns">
+  <%= for template <- @templates do %>
+    <div class="column is-one-quarter-desktop is-half-tablet">
+      <article class="card">
+        <main class="card-content">
+          <h2 class="subtitle"><%= template.name %></h2>
+        </main>
+        <footer class="card-footer">
+          <%= live_redirect "Preview",
+            to: Routes.template_show_path(@socket, :show, @project, template),
+            class: "card-footer-item" %>
+
+          <%= live_redirect "Edit",
+            to: Routes.template_show_path(@socket, :edit, @project, template),
+            class: "card-footer-item" %>
+        </footer>
+      </article>
+    </div>
+  <% end %>
+</div>
+
+<%= if @live_action == :new do %>
+  <%= live_modal @socket, YowedWeb.TemplateLive.FormComponent,
+    id: :new,
+    title: @page_title,
+    action: :new,
+    template: @template,
+    project: @project,
+    return_to: Routes.template_index_path(@socket, :index, @project) %>
+<% end %>

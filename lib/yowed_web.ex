@@ -78,6 +78,7 @@ defmodule YowedWeb do
       use Phoenix.HTML
 
       import Phoenix.LiveView.Helpers
+      import YowedWeb.LiveHelpers
       import Phoenix.View
 
       import YowedWeb.{ErrorHelpers, Gettext, LiveHelpers}

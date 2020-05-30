@@ -65,4 +65,91 @@ defmodule Yowed.CraftsTest do
       assert %Ecto.Changeset{} = Crafts.change_project(project)
     end
   end
+
+  describe "templates" do
+    alias Yowed.Crafts.Template
+
+    @valid_attrs %{
+      name: "some name",
+      body: "some body",
+      subject: "some subject",
+      from: %{name: "some name", email: "some email"}
+    }
+
+    @update_attrs %{
+      name: "some updated name",
+      body: "some updated body",
+      subject: "some updated subject",
+      from: %{name: "some updated name", email: "some updated email"}
+    }
+
+    @invalid_attrs %{name: nil, body: nil, subject: nil, from: nil}
+
+    test "list_templates/1 returns all templates" do
+      template = insert(:template)
+      template_without_project = template |> unload_assoc(:project)
+
+      assert Crafts.list_templates(template.project) == [template_without_project]
+    end
+
+    test "get_template!/2 returns the template with given id" do
+      template = insert(:template)
+      template_without_project = template |> unload_assoc(:project)
+
+      assert Crafts.get_template!(template.project, template.id) == template_without_project
+    end
+
+    test "create_template/1 with valid data creates a template" do
+      project = insert(:project)
+
+      assert {:ok, %Template{} = template} = Crafts.create_template(project, @valid_attrs)
+      assert template.name == "some name"
+      assert template.body == "some body"
+      assert template.subject == "some subject"
+      assert template.from.name == "some name"
+      assert template.from.email == "some email"
+    end
+
+    test "create_template/1 with invalid data returns error changeset" do
+      project = insert(:project)
+
+      assert {:error, %Ecto.Changeset{}} = Crafts.create_template(project, @invalid_attrs)
+    end
+
+    test "update_template/2 with valid data updates the template" do
+      template = insert(:template)
+
+      assert {:ok, %Template{} = template} = Crafts.update_template(template, @update_attrs)
+      assert template.body == "some updated body"
+      assert template.name == "some updated name"
+      assert template.subject == "some updated subject"
+      assert template.from.name == "some updated name"
+      assert template.from.email == "some updated email"
+    end
+
+    test "update_template/2 with invalid data returns error changeset" do
+      template = insert(:template)
+
+      assert {:error, %Ecto.Changeset{}} = Crafts.update_template(template, @invalid_attrs)
+
+      assert unload_assoc(template, :project) ==
+               Crafts.get_template!(template.project, template.id)
+    end
+
+    test "delete_template/1 deletes the template" do
+      template = insert(:template)
+
+      assert {:ok, %Template{}} = Crafts.delete_template(template)
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Crafts.get_template!(template.project, template.id)
+      end
+    end
+
+    test "change_template/1 returns a template changeset" do
+      template = build(:template)
+
+      assert %Ecto.Changeset{} = Crafts.change_template(template)
+    end
+  end
 end
