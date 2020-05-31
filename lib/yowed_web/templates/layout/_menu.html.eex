@@ -30,7 +30,7 @@
 
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
+          <a class="navbar-link has-text-weight-semibold">
             <%= @current_user.name %>
           </a>
 

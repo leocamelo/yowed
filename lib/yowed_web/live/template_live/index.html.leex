@@ -1,38 +1,50 @@
-<div class="level">
-  <div class="level-right">
-    <div class="level-item">
-      <h1 class="title">Templates</h1>
+<%= if Enum.any?(@templates) do %>
+  <div class="level">
+    <div class="level-right">
+      <div class="level-item">
+        <h1 class="title">Templates</h1>
+      </div>
+    </div>
+
+    <div class="level-left">
+      <div class="level-item">
+        <%= live_patch "Create a new template",
+          to: Routes.template_index_path(@socket, :new, @project),
+          class: "button is-link is-light" %>
+      </div>
     </div>
   </div>
-  <div class="level-left">
-    <div class="level-item">
-      <%= live_patch "Create a new template",
-        to: Routes.template_index_path(@socket, :new, @project),
-        class: "button is-link is-light" %>
+
+  <div class="columns">
+    <%= for template <- @templates do %>
+      <div class="column is-one-third-desktop is-half-tablet">
+        <%= live_component @socket, YowedWeb.TemplateLive.TemplateComponent,
+          template: template,
+          project: @project %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="columns is-centered">
+    <div class="column is-one-third-desktop is-half-tablet">
+      <div class="box">
+        <h1 class="title">Create your first template!</h1>
+
+        <div class="content">
+          <p>A "Welcome to our club" email is a good idea</p>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <%= live_patch "Create a template",
+              to: Routes.template_index_path(@socket, :new, @project),
+              class: "button is-link is-fullwidth" %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="columns">
-  <%= for template <- @templates do %>
-    <div class="column is-one-quarter-desktop is-half-tablet">
-      <article class="card">
-        <main class="card-content">
-          <h2 class="subtitle"><%= template.name %></h2>
-        </main>
-        <footer class="card-footer">
-          <%= live_patch "Preview",
-            to: Routes.template_index_path(@socket, :preview, @project, template),
-            class: "card-footer-item" %>
-
-          <%= live_redirect "Edit",
-            to: Routes.template_show_path(@socket, :edit, @project, template),
-            class: "card-footer-item" %>
-        </footer>
-      </article>
-    </div>
-  <% end %>
-</div>
+<% end %>
 
 <%= if @live_action == :new do %>
   <%= live_modal @socket, YowedWeb.TemplateLive.FormNewComponent,

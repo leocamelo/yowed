@@ -1,16 +1,3 @@
-<div class="columns is-centered">
-  <div class="column is-half-tablet">
-    <div class="box">
-      <%= live_component @socket, YowedWeb.TemplateLive.FormEditComponent,
-        id: @template.id,
-        template: @template %>
-    </div>
-  </div>
-  <div class="column is-half-tablet">
-    <div class="box">
-      <%= live_component @socket, YowedWeb.TemplateLive.PreviewComponent,
-        id: @template.id,
-        template: @template %>
-    </div>
-  </div>
-</div>
+<%= live_component @socket, YowedWeb.TemplateLive.FormEditComponent,
+  id: @template.id,
+  template: @template %>

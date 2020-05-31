@@ -116,8 +116,9 @@ defmodule Yowed.Crafts do
   def list_templates(%Project{} = project) do
     Repo.all(
       from t in Template,
+        select: [:id, :name],
         where: t.project_id == ^project.id,
-        order_by: t.name
+        order_by: t.inserted_at
     )
   end
 

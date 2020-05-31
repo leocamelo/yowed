@@ -1,0 +1,26 @@
+<article id="template-<%= @template.id %>" class="card">
+  <main class="card-content">
+    <h3 class="subtitle"><%= @template.name %></h3>
+
+    <div class="content is-size-7 has-text-grey">
+      <p>ID: <code><%= @template.id %></code>
+    </div>
+  </main>
+
+  <footer class="card-footer">
+    <%= live_patch "Preview",
+      to: Routes.template_index_path(@socket, :preview, @project, @template),
+      class: "card-footer-item" %>
+
+    <%= live_redirect "Edit",
+      to: Routes.template_show_path(@socket, :edit, @project, @template),
+      class: "card-footer-item" %>
+
+    <%= link "Delete",
+      to: "#",
+      class: "card-footer-item",
+      phx_click: "delete",
+      phx_value_id: @template.id,
+      data: [confirm: "Are you sure?"] %>
+  </footer>
+</article>

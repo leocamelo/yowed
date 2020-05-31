@@ -1,6 +1,8 @@
 defmodule YowedWeb.TemplateLive.FormEditComponent do
   use YowedWeb, :live_component
 
+  alias Ecto.Changeset
+
   alias Yowed.Crafts
 
   @impl true
@@ -10,7 +12,8 @@ defmodule YowedWeb.TemplateLive.FormEditComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:changeset, changeset)}
+     |> assign(:changeset, changeset)
+     |> assign(:template_preview, template)}
   end
 
   @impl true
@@ -20,7 +23,10 @@ defmodule YowedWeb.TemplateLive.FormEditComponent do
       |> Crafts.change_template(template_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    {:noreply,
+     socket
+     |> assign(:changeset, changeset)
+     |> assign(:template_preview, Changeset.apply_changes(changeset))}
   end
 
   def handle_event("save", %{"template" => template_params}, socket) do
@@ -29,11 +35,12 @@ defmodule YowedWeb.TemplateLive.FormEditComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Template updated successfully")
-         |> push_patch(
-           to: Routes.template_show_path(socket, :edit, template.project_id, template)
+         |> push_redirect(
+           to: Routes.template_show_path(socket, :edit, template.project_id, template),
+           replace: true
          )}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
     end
   end

@@ -14,7 +14,7 @@ defmodule YowedWeb.ProjectLive.Show do
 
     {:noreply,
      socket
-     |> assign(:page_title, project.name)
+     |> assign(:page_title, "Dashboard")
      |> assign(:project, project)}
   end
 end

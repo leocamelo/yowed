@@ -23,7 +23,7 @@ defmodule YowedWeb.ProjectLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Select a project")
+    |> assign(:page_title, "Projects")
     |> assign(:project, nil)
   end
 

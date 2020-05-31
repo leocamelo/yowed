@@ -14,17 +14,19 @@ const liveSocket = new LiveSocket('/live', Socket, { params: { _csrf_token: csrf
 // window.addEventListener('phx:page-loading-start', () => NProgress.start());
 // window.addEventListener('phx:page-loading-stop', () => NProgress.done());
 
+liveSocket.connect();
+
 window.addEventListener('phx:page-loading-stop', () => {
   const $burger = document.querySelector('.navbar-burger');
-
   if ($burger) {
-    const $burgerTarget = document.getElementById($burger.dataset.target);
+    const $target = document.getElementById($burger.dataset.target);
 
     $burger.addEventListener('click', () => {
       $burger.classList.toggle('is-active');
-      $burgerTarget.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
     });
   }
-});
 
-liveSocket.connect();
+  const $autofocus = document.querySelector('.is-autofocus');
+  if ($autofocus) $autofocus.focus();
+});

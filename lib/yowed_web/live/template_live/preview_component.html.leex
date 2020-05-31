@@ -3,21 +3,21 @@
     <strong>Name:</strong>
     <%= @template.name %>
   </li>
+  <%= if @template.subject do %>
+    <li>
+      <strong>Subject:</strong>
+      <%= @template.subject %>
+    </li>
+  <% end %>
 
-  <li>
-    <strong>Subject:</strong>
-    <%= @template.subject %>
-  </li>
-
-  <li>
-    <strong>Body:</strong>
-    <%= @template.body %>
-  </li>
-
-  <%= if @template.from do %>
+  <%= if @template.from && @template.from.email do %>
     <li>
       <strong>From:</strong>
-      <%= @template.from.name %> <<%= @template.from.email %>>
+      <%= @template.from.name %> &lt;<%= @template.from.email %>&gt;
     </li>
   <% end %>
 </ul>
+<br>
+<pre class="content">
+  <%= @template.body %>
+</pre>

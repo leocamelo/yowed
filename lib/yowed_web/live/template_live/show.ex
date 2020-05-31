@@ -15,7 +15,7 @@ defmodule YowedWeb.TemplateLive.Show do
 
     {:noreply,
      socket
-     |> assign(:page_title, "Edit #{template.name}")
+     |> assign(:page_title, "Edit template")
      |> assign(:project, project)
      |> assign(:template, template)}
   end

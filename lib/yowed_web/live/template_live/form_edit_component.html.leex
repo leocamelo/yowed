@@ -4,56 +4,74 @@
   phx_change: "validate",
   phx_submit: "save" %>
 
-  <div class="field">
-    <%= label f, :name, class: "label" %>
-    <div class="control">
-      <%= text_input f, :name, class: "input" %>
-    </div>
-    <%= error_tag f, :name %>
-  </div>
-
-  <div class="field">
-    <%= label f, :subject, class: "label" %>
-    <div class="control">
-      <%= text_input f, :subject, class: "input" %>
-    </div>
-    <%= error_tag f, :subject %>
-  </div>
-
-  <div class="field">
-    <%= label f, :body, class: "label" %>
-    <div class="control">
-      <%= textarea f, :body, class: "textarea" %>
-    </div>
-    <%= error_tag f, :body %>
-  </div>
-
-  <%= hidden_input f, :from, value: nil %>
-  <%= for g <- inputs_for f, :from do %>
-    <%= hidden_inputs_for g %>
-
-    <div class="field">
-      <%= label g, :name, class: "label" %>
-      <div class="control">
-        <%= text_input g, :name, class: "input" %>
+  <div class="level">
+    <div class="level-right">
+      <div class="level-item">
+        <h1 class="title">Edit template</h1>
       </div>
-      <%= error_tag g, :name %>
     </div>
 
-    <div class="field">
-      <%= label g, :email, class: "label" %>
-      <div class="control">
-        <%= email_input g, :email, class: "input" %>
+    <div class="level-left">
+      <div class="level-item">
+        <%= submit "Save",
+          class: "button is-link",
+          phx_disable_with: "Saving..." %>
       </div>
-      <%= error_tag g, :email %>
     </div>
-  <% end %>
+  </div>
 
-  <div class="field">
-    <div class="control">
-      <%= submit "Save",
-        class: "button is-link is-fullwidth",
-        phx_disable_with: "Saving..." %>
+  <div class="columns">
+    <div class="column is-half-tablet">
+      <div class="box">
+        <div class="field">
+          <div class="control">
+            <%= textarea f, :body, class: "textarea", rows: 20 %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= label f, :name, class: "label" %>
+          <div class="control">
+            <%= text_input f, :name, class: "input" %>
+          </div>
+          <%= error_tag f, :name %>
+        </div>
+
+        <div class="field">
+          <%= label f, :subject, class: "label" %>
+          <div class="control">
+            <%= text_input f, :subject, class: "input" %>
+          </div>
+          <%= error_tag f, :subject %>
+        </div>
+
+        <%= hidden_input f, :from, value: nil %>
+        <%= for g <- inputs_for f, :from do %>
+          <%= hidden_inputs_for g %>
+
+          <div class="field">
+            <%= label g, :name, "From name", class: "label" %>
+            <div class="control">
+              <%= text_input g, :name, class: "input" %>
+            </div>
+            <%= error_tag g, :name %>
+          </div>
+
+          <div class="field">
+            <%= label g, :email, "From email", class: "label" %>
+            <div class="control">
+              <%= email_input g, :email, class: "input" %>
+            </div>
+            <%= error_tag g, :email %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="column is-half-tablet">
+      <div class="box">
+        <%= live_component @socket, YowedWeb.TemplateLive.PreviewComponent,
+          template: @template_preview %>
+      </div>
     </div>
   </div>
 </form>

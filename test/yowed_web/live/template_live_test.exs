@@ -55,13 +55,16 @@ defmodule YowedWeb.TemplateLiveTest do
       assert html =~ template.name
     end
 
-    # test "deletes template in listing", %{conn: conn, project: project, template: template} do
-    #   conn = login_user(conn, project.user)
-    #   {:ok, index_live, _html} = live(conn, Routes.template_index_path(conn, :index, project))
+    test "deletes template in listing", %{conn: conn, project: project, template: template} do
+      conn = login_user(conn, project.user)
+      {:ok, index_live, _html} = live(conn, Routes.template_index_path(conn, :index, project))
 
-    #   assert index_live |> element("#template-#{template.id} a", "Delete") |> render_click()
-    #   refute has_element?(index_live, "#template-#{template.id}")
-    # end
+      assert index_live
+             |> element("#template-#{template.id} a", "Delete")
+             |> render_click()
+
+      refute has_element?(index_live, "#template-#{template.id}")
+    end
   end
 
   describe "Show" do
@@ -77,14 +80,14 @@ defmodule YowedWeb.TemplateLiveTest do
              |> form("#template-form", template: %{name: nil, body: nil})
              |> render_change() =~ "can&apos;t be blank"
 
-      # TODO: verify patch problem
-      # html =
-      #   show_live
-      #   |> form("#template-form", template: @valid_update_attrs)
-      #   |> render_submit()
+      {:ok, _, html} =
+        show_live
+        |> form("#template-form", template: %{name: "some updated name"})
+        |> render_submit()
+        |> follow_redirect(conn)
 
-      # assert html =~ "Template updated successfully"
-      # assert html =~ "some updated name"
+      assert html =~ "Template updated successfully"
+      assert html =~ "some updated name"
     end
   end
 end
