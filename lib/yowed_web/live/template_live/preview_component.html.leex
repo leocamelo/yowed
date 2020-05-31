@@ -18,6 +18,16 @@
   <% end %>
 </ul>
 <br>
-<pre class="content">
-  <%= @template.body %>
-</pre>
+<div class="tabs is-small is-boxed is-marginless">
+  <ul>
+    <li class="is-active"><a>Preview</a></li>
+    <li><a>HTML</a></li>
+  </ul>
+</div>
+<div class="template-preview-container is-clipped">
+  <iframe
+    width="800"
+    class="template-preview"
+    srcdoc="<%= html_escape @template.body_preview %>">
+  </iframe>
+</div>

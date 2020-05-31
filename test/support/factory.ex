@@ -30,9 +30,24 @@ defmodule Yowed.Factory do
     %Template{
       project: build(:project),
       name: sequence(:template_name, &"Welcome email #{&1}"),
-      body: "Welcome to our philosofy class",
       subject: "Welcome to our philosofy class",
-      from: %{name: "Sophie", email: "sophie@example.com"}
+      from: %{
+        name: "Sophie",
+        email: "sophie@example.com"
+      },
+      body: """
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text>
+                  Welcome to our philosofy class
+                </mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      """
     }
   end
 end

@@ -9,4 +9,5 @@ erl_crash.dump
 yowed-*.tar
 npm-debug.log
 /assets/node_modules/
+/priv/embed/node_modules/
 /priv/static/

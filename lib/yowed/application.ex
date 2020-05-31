@@ -5,6 +5,7 @@ defmodule Yowed.Application do
   def start(_type, _args) do
     children = [
       Yowed.Repo,
+      Yowed.Embed,
       YowedWeb.Telemetry,
       {Phoenix.PubSub, name: Yowed.PubSub},
       YowedWeb.Endpoint

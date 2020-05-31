@@ -6,8 +6,11 @@ defmodule Yowed.Repo.Migrations.CreateTemplates do
       add :id, :binary_id, primary_key: true
 
       add :name, :string, null: false
-      add :body, :text
       add :subject, :string
+
+      add :body, :text
+      add :body_preview, :text
+
       add :from, :map
 
       ref_projects = references(:projects, type: :binary_id, on_delete: :delete_all)

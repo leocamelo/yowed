@@ -71,16 +71,46 @@ defmodule Yowed.CraftsTest do
 
     @valid_attrs %{
       name: "some name",
-      body: "some body",
       subject: "some subject",
-      from: %{name: "some name", email: "some email"}
+      from: %{
+        name: "some name",
+        email: "some email"
+      },
+      body: """
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text>
+                  some body
+                </mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      """
     }
 
     @update_attrs %{
       name: "some updated name",
-      body: "some updated body",
       subject: "some updated subject",
-      from: %{name: "some updated name", email: "some updated email"}
+      from: %{
+        name: "some updated name",
+        email: "some updated email"
+      },
+      body: """
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text>
+                  some updated body
+                </mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+      """
     }
 
     @invalid_attrs %{name: nil, body: nil, subject: nil, from: nil}
@@ -106,7 +136,7 @@ defmodule Yowed.CraftsTest do
 
       assert {:ok, %Template{} = template} = Crafts.create_template(project, @valid_attrs)
       assert template.name == "some name"
-      assert template.body == "some body"
+      assert template.body =~ "some body"
       assert template.subject == "some subject"
       assert template.from.name == "some name"
       assert template.from.email == "some email"
@@ -122,8 +152,8 @@ defmodule Yowed.CraftsTest do
       template = insert(:template)
 
       assert {:ok, %Template{} = template} = Crafts.update_template(template, @update_attrs)
-      assert template.body == "some updated body"
       assert template.name == "some updated name"
+      assert template.body =~ "some updated body"
       assert template.subject == "some updated subject"
       assert template.from.name == "some updated name"
       assert template.from.email == "some updated email"
