@@ -6,7 +6,7 @@ config :yowed, YowedWeb.Endpoint,
 
 config :yowed, Yowed.Repo,
   username: "postgres",
-  password: "postgres",
+  password: if(System.get_env("TRAVIS"), do: "", else: "postgres"),
   database: "yowed_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

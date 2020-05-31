@@ -1,0 +1,15 @@
+dist: bionic
+
+language: elixir
+
+elixir:
+  - 1.10
+
+otp_release:
+  - 23.0
+
+addons:
+  postgresql: 11
+
+services:
+  - postgresql
