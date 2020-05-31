@@ -13,3 +13,6 @@ addons:
 
 services:
   - postgresql
+
+before_script:
+  - npm install --prefix priv/embed
