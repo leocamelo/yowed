@@ -1,0 +1,23 @@
+<ul>
+  <li>
+    <strong>Name:</strong>
+    <%= @template.name %>
+  </li>
+
+  <li>
+    <strong>Subject:</strong>
+    <%= @template.subject %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @template.body %>
+  </li>
+
+  <%= if @template.from do %>
+    <li>
+      <strong>From:</strong>
+      <%= @template.from.name %> <<%= @template.from.email %>>
+    </li>
+  <% end %>
+</ul>

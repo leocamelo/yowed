@@ -19,7 +19,7 @@ defmodule Yowed.Crafts.Template do
   def changeset(%Template{} = template, attrs) do
     template
     |> cast(attrs, [:name, :body, :subject])
-    |> validate_required([:project_id, :name, :body])
+    |> validate_required([:project_id, :name])
     |> unique_constraint([:project_id, :name])
     |> assoc_constraint(:project)
     |> cast_embed(:from)

@@ -6,8 +6,7 @@ defmodule Yowed.Repo.Migrations.CreateTemplates do
       add :id, :binary_id, primary_key: true
 
       add :name, :string, null: false
-      add :body, :text, null: false
-
+      add :body, :text
       add :subject, :string
       add :from, :map
 

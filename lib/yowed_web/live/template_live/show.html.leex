@@ -1,44 +1,16 @@
-<h1 class="title"><%= @template.name %></h1>
-
-<%= live_patch "Edit template", to: Routes.template_show_path(@socket, :edit, @project, @template), class: "button" %>
-
 <div class="columns is-centered">
-  <%= if @live_action == :edit do %>
-    <div class="column is-half-tablet">
-      <div class="box">
-        <%= live_component @socket, YowedWeb.TemplateLive.FormComponent,
-          id: @template.id,
-          title: @page_title,
-          action: :edit,
-          template: @template,
-          project: @project,
-          return_to: Routes.template_show_path(@socket, :show, @project, @template) %>
-      </div>
-    </div>
-  <% end %>
   <div class="column is-half-tablet">
     <div class="box">
-      <ul>
-        <li>
-          <strong>Name:</strong>
-          <%= @template.name %>
-        </li>
-
-        <li>
-          <strong>Subject:</strong>
-          <%= @template.subject %>
-        </li>
-
-        <li>
-          <strong>Body:</strong>
-          <%= @template.body %>
-        </li>
-
-        <li>
-          <strong>From:</strong>
-          <%= @template.from.name %> <<%= @template.from.email %>>
-        </li>
-      </ul>
+      <%= live_component @socket, YowedWeb.TemplateLive.FormEditComponent,
+        id: @template.id,
+        template: @template %>
+    </div>
+  </div>
+  <div class="column is-half-tablet">
+    <div class="box">
+      <%= live_component @socket, YowedWeb.TemplateLive.PreviewComponent,
+        id: @template.id,
+        template: @template %>
     </div>
   </div>
 </div>

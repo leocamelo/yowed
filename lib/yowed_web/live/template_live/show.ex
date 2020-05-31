@@ -9,13 +9,13 @@ defmodule YowedWeb.TemplateLive.Show do
   end
 
   @impl true
-  def handle_params(%{"project_id" => project_id, "template_id" => template_id}, _, socket) do
+  def handle_params(%{"project_id" => project_id, "id" => id}, _, socket) do
     project = Crafts.get_project!(socket.assigns.current_user, project_id)
-    template = Crafts.get_template!(project, template_id)
+    template = Crafts.get_template!(project, id)
 
     {:noreply,
      socket
-     |> assign(:page_title, template.name)
+     |> assign(:page_title, "Edit #{template.name}")
      |> assign(:project, project)
      |> assign(:template, template)}
   end

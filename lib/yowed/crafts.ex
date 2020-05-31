@@ -114,7 +114,11 @@ defmodule Yowed.Crafts do
 
   """
   def list_templates(%Project{} = project) do
-    Repo.all(from t in Template, where: t.project_id == ^project.id, order_by: t.name)
+    Repo.all(
+      from t in Template,
+        where: t.project_id == ^project.id,
+        order_by: t.name
+    )
   end
 
   @doc """

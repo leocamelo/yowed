@@ -21,8 +21,8 @@
           <h2 class="subtitle"><%= template.name %></h2>
         </main>
         <footer class="card-footer">
-          <%= live_redirect "Preview",
-            to: Routes.template_show_path(@socket, :show, @project, template),
+          <%= live_patch "Preview",
+            to: Routes.template_index_path(@socket, :preview, @project, template),
             class: "card-footer-item" %>
 
           <%= live_redirect "Edit",
@@ -35,11 +35,15 @@
 </div>
 
 <%= if @live_action == :new do %>
-  <%= live_modal @socket, YowedWeb.TemplateLive.FormComponent,
+  <%= live_modal @socket, YowedWeb.TemplateLive.FormNewComponent,
     id: :new,
-    title: @page_title,
-    action: :new,
-    template: @template,
     project: @project,
+    return_to: Routes.template_index_path(@socket, :index, @project) %>
+<% end %>
+
+<%= if @live_action == :preview do %>
+  <%= live_modal @socket, YowedWeb.TemplateLive.PreviewComponent,
+    id: @template.id,
+    template: @template,
     return_to: Routes.template_index_path(@socket, :index, @project) %>
 <% end %>
