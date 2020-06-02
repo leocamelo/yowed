@@ -22,7 +22,7 @@ defmodule YowedWeb.UserSessionController do
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "Logged out successfully.")
+    |> put_flash(:info, "Logged out successfully")
     |> UserAuth.logout_user()
   end
 

@@ -16,7 +16,7 @@ defmodule YowedWeb.UserSettingsController do
     case Accounts.update_user_email(user, password, user_params) do
       {:ok, _updated_user} ->
         conn
-        |> put_flash(:info, "E-mail changed successfully.")
+        |> put_flash(:info, "E-mail changed successfully")
         |> redirect(to: Routes.user_settings_path(conn, :edit))
 
       {:error, changeset} ->
@@ -30,7 +30,7 @@ defmodule YowedWeb.UserSettingsController do
     case Accounts.update_user_password(user, password, user_params) do
       {:ok, updated_user} ->
         conn
-        |> put_flash(:info, "Password updated successfully.")
+        |> put_flash(:info, "Password updated successfully")
         |> put_session(:user_return_to, Routes.user_settings_path(conn, :edit))
         |> UserAuth.login_user(updated_user)
 

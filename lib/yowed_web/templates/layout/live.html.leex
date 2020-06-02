@@ -2,24 +2,22 @@
 
 <section class="section">
   <div class="container">
-    <%= if info = live_flash(@flash, :info) do %>
-      <div class="notification is-info" role="alert">
-        <button type="button" class="delete"
-          phx-click="lv:clear-flash"
-          phx-value-key="info"></button>
-        <%= info %>
-      </div>
-    <% end %>
-
-    <%= if error = live_flash(@flash, :error) do %>
-      <div class="notification is-danger" role="alert">
-        <button type="button" class="delete"
-          phx-click="lv:clear-flash"
-          phx-value-key="error"></button>
-        <%= error %>
-      </div>
-    <% end %>
-
     <%= @inner_content %>
   </div>
 </section>
+
+<%= if info = live_flash(@flash, :info) do %>
+  <div class="toast-container is-unselectable">
+    <div class="toast notification is-info" role="alert">
+      <%= info %>
+    </div>
+  </div>
+<% end %>
+
+<%= if error = live_flash(@flash, :error) do %>
+  <div class="toast-container is-unselectable">
+    <div class="toast notification is-danger" role="alert">
+      <%= error %>
+    </div>
+  </div>
+<% end %>

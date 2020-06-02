@@ -1,17 +1,21 @@
 <section class="section">
   <div class="container">
-    <%= if info = get_flash(@conn, :info) do %>
-      <div class="notification is-info" role="alert">
-        <%= info %></p>
-      </div>
-    <% end %>
-
-    <%= if error = get_flash(@conn, :error) do %>
-      <div class="notification is-danger" role="alert">
-        <%= error %>
-      </div>
-    <% end %>
-
     <%= @inner_content %>
   </div>
 </section>
+
+<%= if info = get_flash(@conn, :info) do %>
+  <div class="toast-container is-unselectable">
+    <div class="toast notification is-info" role="alert">
+      <%= info %>
+    </div>
+  </div>
+<% end %>
+
+<%= if error = get_flash(@conn, :error) do %>
+  <div class="toast-container is-unselectable">
+    <div class="toast notification is-danger" role="alert">
+      <%= error %>
+    </div>
+  </div>
+<% end %>

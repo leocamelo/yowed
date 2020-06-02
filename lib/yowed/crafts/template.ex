@@ -30,20 +30,31 @@ defmodule Yowed.Crafts.Template do
   end
 
   defp cast_body_preview(changeset) do
-    body = get_change(changeset, :body)
+    case get_change(changeset, :body, :nochange) do
+      :nochange ->
+        changeset
 
-    if body && String.trim(body) != "" do
-      case Embed.call("template", [body]) do
-        {:ok, body_preview} ->
-          put_change(changeset, :body_preview, body_preview)
+      nil ->
+        put_change(changeset, :body_preview, nil)
 
-        {:error, _reason} ->
-          changeset
-          |> add_error(:body, "Failed to parse MJML")
-          |> put_change(:body_preview, "")
-      end
-    else
-      changeset
+      body ->
+        if String.trim(body) != "" do
+          do_cast_body_preview(changeset, body)
+        else
+          put_change(changeset, :body_preview, nil)
+        end
+    end
+  end
+
+  defp do_cast_body_preview(changeset, body) do
+    case Embed.call("template", [body]) do
+      {:ok, body_preview} ->
+        put_change(changeset, :body_preview, body_preview)
+
+      {:error, _reason} ->
+        changeset
+        |> put_change(:body_preview, "")
+        |> add_error(:body, "Failed to parse MJML")
     end
   end
 end

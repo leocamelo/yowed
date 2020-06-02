@@ -14,7 +14,7 @@ defmodule YowedWeb.UserRegistrationController do
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> put_flash(:info, "User created successfully")
         |> UserAuth.login_user(user)
 
       {:error, %Ecto.Changeset{} = changeset} ->

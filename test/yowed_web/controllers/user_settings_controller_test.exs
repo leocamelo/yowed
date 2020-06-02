@@ -68,7 +68,7 @@ defmodule YowedWeb.UserSettingsControllerTest do
         })
 
       assert redirected_to(conn) == "/settings"
-      assert get_flash(conn, :info) =~ "E-mail changed successfully."
+      assert get_flash(conn, :info) =~ "E-mail changed successfully"
 
       refute Accounts.get_user_by_email(user.email)
       assert Accounts.get_user_by_email(new_email)
