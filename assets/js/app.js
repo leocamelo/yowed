@@ -44,20 +44,34 @@ const behaviors = {
   },
 
   '.template-preview': ($preview, query) => {
-    const scale = $preview.parentNode.offsetWidth / $preview.width;
-    applyStyle('template-preview-style', `${query}{transform:scale(${scale})}`);
+    const $parent = $preview.parentNode;
+    const $win = $preview.contentWindow;
+
+    let cache = null;
+
+    const applyScale = () => {
+      const scale = $parent.offsetWidth / $preview.width;
+      const height = $win.document.documentElement.scrollHeight;
+      const cacheKey = `${scale}/${height}`;
+
+      if (cacheKey != cache) {
+        cache = cacheKey;
+        applyStyle('template-preview-style', `
+          ${query}-container{height:${height * scale}px}
+          ${query}{height:${height}px;transform:scale(${scale})}
+        `);
+      }
+    };
+
+    applyScale();
+    window.addEventListener('resize', applyScale);
+    $preview.addEventListener('load', applyScale);
   },
 };
 
-const applyBehavior = (query) => {
-  const $subject = document.querySelector(query);
-  if ($subject) behaviors[query]($subject, query);
-};
-
 window.addEventListener('phx:page-loading-stop', () => {
-  Object.keys(behaviors).forEach(applyBehavior);
-});
-
-window.addEventListener('resize', () => {
-  applyBehavior('.template-preview');
+  Object.entries(behaviors).forEach(([query, callback]) => {
+    const $subject = document.querySelector(query);
+    if ($subject) callback($subject, query);
+  });
 });
