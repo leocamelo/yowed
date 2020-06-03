@@ -1,4 +1,6 @@
 @import 'bulma';
+@import 'codemirror';
+@import 'codemirror/theme/material';
 
 body {
   min-height: 100vh;
@@ -26,6 +28,16 @@ body {
   }
 }
 
+.template-preview-container {
+  border-width: 0 1px 1px;
+  border-style: solid;
+  border-color: $border;
+}
+
+.template-preview {
+  transform-origin: top left;
+}
+
 .phx-no-feedback.help,
 .phx-no-feedback .help {
   display: none;
@@ -42,14 +54,4 @@ body {
   * {
     pointer-events: none;
   }
-}
-
-.template-preview-container {
-  border-width: 0 1px 1px;
-  border-style: solid;
-  border-color: $border;
-}
-
-.template-preview {
-  transform-origin: top left;
 }

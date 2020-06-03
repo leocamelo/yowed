@@ -25,9 +25,11 @@
   </ul>
 </div>
 <div class="template-preview-container is-clipped">
+  <style id="template-preview-style" type="text/css" phx-update="ignore"></style>
   <iframe
     width="800"
     class="template-preview"
-    srcdoc="<%= html_escape @template.body_preview %>">
+    srcdoc="<%= html_escape @template.body_preview %>"
+    phx-hook="templatePreview">
   </iframe>
 </div>
