@@ -8,6 +8,11 @@ elixir:
 otp_release:
   - 23.0
 
+cache:
+  directories:
+    - deps
+    - _build
+
 addons:
   postgresql: 11
 
