@@ -20,8 +20,10 @@ defmodule YowedWeb.LiveHelpers do
   ## Examples
 
       <%= live_modal @socket, YowedWeb.ProjectLive.FormComponent,
-        id: @project.id || :new,
-        action: @live_action,
+        id: :new,
+        title: @page_title
+        size: :small,
+        action: :new,
         project: @project,
         current_user: @current_user,
         return_to: Routes.project_index_path(@socket, :index) %>

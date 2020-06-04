@@ -8,7 +8,7 @@ export default {
       const { documentElement } = contentWindow.document;
       if (!documentElement) return;
 
-      const scale = parentNode.offsetWidth / el.width;
+      const scale = Math.min(parentNode.offsetWidth / el.width, 1);
       const height = documentElement.scrollHeight;
 
       style.textContent = `

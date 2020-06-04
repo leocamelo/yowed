@@ -49,6 +49,8 @@
 <%= if @live_action == :new do %>
   <%= live_modal @socket, YowedWeb.TemplateLive.FormNewComponent,
     id: :new,
+    title: @page_title,
+    size: :small,
     project: @project,
     return_to: Routes.template_index_path(@socket, :index, @project) %>
 <% end %>
@@ -56,6 +58,8 @@
 <%= if @live_action == :preview do %>
   <%= live_modal @socket, YowedWeb.TemplateLive.PreviewComponent,
     id: @template.id,
+    title: @template.name,
+    size: :large,
     template: @template,
     return_to: Routes.template_index_path(@socket, :index, @project) %>
 <% end %>

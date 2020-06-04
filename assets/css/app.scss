@@ -1,6 +1,6 @@
 @import 'bulma';
 @import 'codemirror';
-@import 'codemirror/theme/material';
+@import 'codemirror/theme/material-darker';
 
 body {
   min-height: 100vh;
@@ -8,6 +8,32 @@ body {
 
 .box + .content {
   padding: 0 20px;
+}
+
+.navbar-dropdown .field {
+  width: 330px;
+}
+
+.navbar-item.has-button {
+  padding: .35rem .75rem;
+}
+
+@media screen and (min-width: 440px), print {
+  .modal.is-small .modal-content {
+    width: 440px;
+  }
+}
+
+@media screen and (min-width: 840px), print {
+  .modal.is-large .modal-content {
+    width: 840px;
+  }
+}
+
+.tabs-content {
+  border-width: 0 1px 1px;
+  border-style: solid;
+  border-color: $border;
 }
 
 .toast-container {
@@ -28,14 +54,22 @@ body {
   }
 }
 
-.template-preview-container {
-  border-width: 0 1px 1px;
-  border-style: solid;
-  border-color: $border;
-}
-
 .template-preview {
   transform-origin: top left;
+}
+
+.CodeMirror,
+.CodeMirrorAddon {
+  height: calc(100vh - 56px);
+}
+
+.CodeMirror {
+  font-size: 14px;
+}
+
+.CodeMirrorAddon {
+  overflow: auto;
+  padding: 24px;
 }
 
 .phx-no-feedback.help,

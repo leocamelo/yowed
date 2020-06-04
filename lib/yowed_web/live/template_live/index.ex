@@ -30,7 +30,7 @@ defmodule YowedWeb.TemplateLive.Index do
     template = Crafts.get_template!(socket.assigns.project, id)
 
     socket
-    |> assign(:page_title, "Template")
+    |> assign(:page_title, "Template preview")
     |> assign(:template, template)
   end
 

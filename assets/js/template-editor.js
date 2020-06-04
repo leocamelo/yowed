@@ -10,7 +10,7 @@ export default {
       autofocus: true,
       lineNumbers: true,
       mode: 'xml',
-      theme: 'material',
+      theme: 'material-darker',
     });
 
     codeMirror.on('change', () => {
