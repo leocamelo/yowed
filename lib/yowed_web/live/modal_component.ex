@@ -20,10 +20,10 @@ defmodule YowedWeb.ModalComponent do
           <% end %>
           <%= live_component @socket, @component, @opts %>
         </div>
-        <%= live_patch nil,
-          to: @return_to,
-          class: "modal-close is-large",
-          aria: [label: "close"] %>
+        <button type="button" class="delete is-medium" aria-label="close"
+          phx-click="close"
+          phx-target="#<%= @id %>">
+        </button>
       </div>
     </div>
     """

@@ -10,6 +10,10 @@ body {
   padding: 0 20px;
 }
 
+.navbar .image.is-32x32 img {
+  max-height: none;
+}
+
 .navbar-dropdown .field {
   width: 330px;
 }
@@ -28,6 +32,12 @@ body {
   .modal.is-large .modal-content {
     width: 840px;
   }
+}
+
+.modal-content > .delete {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .tabs-content {
@@ -60,7 +70,7 @@ body {
 
 .CodeMirror,
 .CodeMirrorAddon {
-  height: calc(100vh - 56px);
+  height: calc(100vh - #{$navbar-height});
 }
 
 .CodeMirror {

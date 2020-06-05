@@ -57,6 +57,12 @@
             class: "navbar-item" %>
         </div>
       </div>
+
+      <div class="navbar-item">
+        <%= live_component @socket, YowedWeb.AvatarComponent,
+          user: @current_user,
+          size: 32 %>
+      </div>
     </div>
   </div>
 </nav>

@@ -12,9 +12,11 @@ defmodule Yowed.CraftsTest do
 
     test "list_projects/1 returns all projects" do
       project = insert(:project)
-      project_without_user = project |> unload_assoc(:user)
 
-      assert Crafts.list_projects(project.user) == [project_without_user]
+      [%{id: project_id, name: project_name}] = Crafts.list_projects(project.user)
+
+      assert project_id == project.id
+      assert project_name == project.name
     end
 
     test "get_project!/2 returns the project with given id" do
@@ -118,7 +120,7 @@ defmodule Yowed.CraftsTest do
     test "list_templates/1 returns all templates" do
       template = insert(:template)
 
-      [%{id: template_id, name: template_name} | []] = Crafts.list_templates(template.project)
+      [%{id: template_id, name: template_name}] = Crafts.list_templates(template.project)
 
       assert template_id == template.id
       assert template_name == template.name
