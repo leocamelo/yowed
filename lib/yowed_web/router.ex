@@ -50,6 +50,8 @@ defmodule YowedWeb.Router do
   scope "/", YowedWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    live "/account", AccountLive.Show, :edit
+
     get "/settings", UserSettingsController, :edit
     put "/settings/update_password", UserSettingsController, :update_password
     put "/settings/update_email", UserSettingsController, :update_email

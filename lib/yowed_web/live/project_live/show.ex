@@ -9,7 +9,7 @@ defmodule YowedWeb.ProjectLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(%{"id" => id}, _url, socket) do
     project = Crafts.get_project!(socket.assigns.current_user, id)
 
     {:noreply,

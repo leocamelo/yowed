@@ -34,13 +34,13 @@
 
     <div class="navbar-end">
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link has-text-weight-semibold">
+        <a class="navbar-link">
           <%= @current_user.name %>
         </a>
 
         <div class="navbar-dropdown is-right is-boxed">
-          <%= link "Edit Account",
-            to: Routes.user_settings_path(@socket, :edit),
+          <%= live_redirect "Edit Account",
+            to: Routes.account_show_path(@socket, :edit),
             class: "navbar-item" %>
           <hr class="navbar-divider">
 

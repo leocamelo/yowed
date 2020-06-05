@@ -10,7 +10,7 @@ defmodule YowedWeb.TemplateLive.Show do
   end
 
   @impl true
-  def handle_params(%{"project_id" => project_id, "id" => id}, _, socket) do
+  def handle_params(%{"project_id" => project_id, "id" => id}, _url, socket) do
     project = Crafts.get_project!(socket.assigns.current_user, project_id)
     template = Crafts.get_template!(project, id)
 
