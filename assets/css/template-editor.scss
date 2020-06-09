@@ -1,0 +1,13 @@
+.CodeMirror,
+.CodeMirrorAddon {
+  height: calc(100vh - #{$navbar-height});
+}
+
+.CodeMirror {
+  font-size: 14px;
+}
+
+.CodeMirrorAddon {
+  overflow: auto;
+  padding: 24px;
+}

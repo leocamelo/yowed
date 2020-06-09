@@ -52,7 +52,7 @@
       <% end %>
     </div>
 
-    <div class="content has-text-grey">
+    <div class="content has-text-grey px-5">
       <p>
         Already have an account?
         <%= link "Log in here", to: Routes.user_session_path(@conn, :new) %>

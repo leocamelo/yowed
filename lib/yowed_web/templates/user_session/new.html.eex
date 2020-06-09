@@ -47,7 +47,7 @@
       <% end %>
     </div>
 
-    <div class="content has-text-grey">
+    <div class="content has-text-grey px-5">
       <p>
         Don't have an account?
         <%= link "Sign up now", to: Routes.user_registration_path(@conn, :new) %>

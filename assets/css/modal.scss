@@ -1,0 +1,17 @@
+@media screen and (min-width: 440px), print {
+  .modal.is-small .modal-content {
+    width: 440px;
+  }
+}
+
+@media screen and (min-width: 840px), print {
+  .modal.is-large .modal-content {
+    width: 840px;
+  }
+}
+
+.modal-content > .delete {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

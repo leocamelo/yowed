@@ -2,85 +2,13 @@
 @import 'codemirror';
 @import 'codemirror/theme/material-darker';
 
-body {
-  min-height: 100vh;
-}
-
-.box + .content {
-  padding: 0 20px;
-}
-
-.navbar .image.is-32x32 img {
-  max-height: none;
-}
-
-.navbar-dropdown .field {
-  width: 330px;
-}
-
-.navbar-item.has-button {
-  padding: .35rem .75rem;
-}
-
-@media screen and (min-width: 440px), print {
-  .modal.is-small .modal-content {
-    width: 440px;
-  }
-}
-
-@media screen and (min-width: 840px), print {
-  .modal.is-large .modal-content {
-    width: 840px;
-  }
-}
-
-.modal-content > .delete {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.tabs-content {
-  border-width: 0 1px 1px;
-  border-style: solid;
-  border-color: $border;
-}
-
-.toast-container {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 1;
-}
-
-.toast {
-  margin: 0 24px 24px 0;
-  transition: all .4s ease-out;
-  right: -100%;
-  cursor: pointer;
-
-  &.is-active {
-    right: 0;
-  }
-}
-
-.template-preview {
-  transform-origin: top left;
-}
-
-.CodeMirror,
-.CodeMirrorAddon {
-  height: calc(100vh - #{$navbar-height});
-}
-
-.CodeMirror {
-  font-size: 14px;
-}
-
-.CodeMirrorAddon {
-  overflow: auto;
-  padding: 24px;
-}
+@import 'base';
+@import 'modal';
+@import 'navbar';
+@import 'tabs';
+@import 'template-editor';
+@import 'template-preview';
+@import 'toast';
 
 .phx-no-feedback.help,
 .phx-no-feedback .help {
