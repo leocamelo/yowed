@@ -104,53 +104,45 @@ defmodule Yowed.AccountsTest do
     end
   end
 
-  describe "change_user_email/2" do
+  describe "change_user_profile/2" do
     test "returns a user changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_email(%User{})
-      assert changeset.required == [:email]
+      assert %Ecto.Changeset{} = changeset = Accounts.change_user_profile(%User{})
+      assert changeset.required == [:email, :name]
     end
   end
 
-  describe "update_user_email/2" do
+  describe "update_user_profile/2" do
     setup do
-      password = "ultrasecretpassword"
-      user = insert(:user, password: password)
-      %{email: email} = params_for(:user)
+      user = insert(:user)
+      %{name: name, email: email} = params_for(:user)
 
-      %{user: user, password: password, email: email}
+      %{user: user, name: name, email: email}
     end
 
-    test "requires email to change", %{user: user, password: password} do
-      {:error, changeset} = Accounts.update_user_email(user, password, %{})
-      assert %{email: ["did not change"]} = errors_on(changeset)
+    test "validates name", %{user: user} do
+      {:error, changeset} = Accounts.update_user_profile(user, %{name: nil})
+      assert %{name: ["can't be blank"]} = errors_on(changeset)
     end
 
-    test "validates email", %{user: user, password: password} do
-      {:error, changeset} = Accounts.update_user_email(user, password, %{email: "not valid"})
+    test "validates email", %{user: user} do
+      {:error, changeset} = Accounts.update_user_profile(user, %{email: "not valid"})
       assert %{email: ["must have the @ sign and no spaces"]} = errors_on(changeset)
     end
 
-    test "validates maximum value for email for security", %{user: user, password: password} do
+    test "validates maximum value for email for security", %{user: user} do
       too_long = String.duplicate("db", 100)
-      {:error, changeset} = Accounts.update_user_email(user, password, %{email: too_long})
+      {:error, changeset} = Accounts.update_user_profile(user, %{email: too_long})
       assert "should be at most 160 character(s)" in errors_on(changeset).email
     end
 
-    test "validates email uniqueness", %{user: user, password: password} do
+    test "validates email uniqueness", %{user: user} do
       %{email: email} = insert(:user)
-      {:error, changeset} = Accounts.update_user_email(user, password, %{email: email})
+      {:error, changeset} = Accounts.update_user_profile(user, %{email: email})
       assert "has already been taken" in errors_on(changeset).email
     end
 
-    test "validates current password", %{user: user} do
-      {:error, changeset} =
-        Accounts.update_user_email(user, "invalid", %{email: params_for(:user).email})
-
-      assert %{current_password: ["is not valid"]} = errors_on(changeset)
-    end
-
-    test "updates the email", %{user: user, password: password, email: email} do
-      {:ok, _updated_user} = Accounts.update_user_email(user, password, %{email: email})
+    test "updates the profile", %{user: user, name: name, email: email} do
+      {:ok, _updated_user} = Accounts.update_user_profile(user, %{name: name, email: email})
       updated_user = Repo.get!(User, user.id)
       assert updated_user.email != user.email
       assert updated_user.email == email

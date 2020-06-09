@@ -32,7 +32,7 @@ defmodule YowedWeb.Router do
   end
 
   scope "/", YowedWeb do
-    pipe_through [:browser]
+    pipe_through :browser
 
     delete "/logout", UserSessionController, :delete
   end
@@ -50,11 +50,9 @@ defmodule YowedWeb.Router do
   scope "/", YowedWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    live "/account", AccountLive.Show, :edit
-
     get "/settings", UserSettingsController, :edit
+    put "/settings/update_profile", UserSettingsController, :update_profile
     put "/settings/update_password", UserSettingsController, :update_password
-    put "/settings/update_email", UserSettingsController, :update_email
 
     live "/", ProjectLive.Index, :index
     live "/new", ProjectLive.Index, :new

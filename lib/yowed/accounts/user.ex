@@ -77,6 +77,13 @@ defmodule Yowed.Accounts.User do
     end
   end
 
+  def profile_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :email])
+    |> validate_name()
+    |> validate_email()
+  end
+
   @doc """
   A user changeset for changing the password.
   """

@@ -1,13 +1,13 @@
 <nav class="navbar has-shadow is-unselectable" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <%= if @project && @project.id do %>
-      <%= live_redirect to: Routes.project_show_path(@socket, :show, @project), class: "navbar-item" do %>
-        <%= img_tag Routes.static_path(@socket, "/images/yowed-brand-indigo.svg") %>
+      <%= live_redirect to: Routes.project_show_path(@conn_or_socket, :show, @project), class: "navbar-item" do %>
+        <%= img_tag Routes.static_path(@conn_or_socket, "/images/yowed-brand-indigo.svg") %>
         <span class="has-text-grey">&nbsp; / <%= @project.name %></span>
       <% end %>
     <% else %>
-      <%= live_redirect to: Routes.project_index_path(@socket, :index), class: "navbar-item" do %>
-        <%= img_tag Routes.static_path(@socket, "/images/yowed-brand-indigo.svg") %>
+      <%= live_redirect to: Routes.project_index_path(@conn_or_socket, :index), class: "navbar-item" do %>
+        <%= img_tag Routes.static_path(@conn_or_socket, "/images/yowed-brand-indigo.svg") %>
       <% end %>
     <% end %>
 
@@ -27,7 +27,7 @@
     <%= if @project && @project.id do %>
       <div class="navbar-start">
         <%= live_redirect "Templates",
-        to: Routes.template_index_path(@socket, :index, @project),
+        to: Routes.template_index_path(@conn_or_socket, :index, @project),
         class: "navbar-item"%>
       </div>
     <% end %>
@@ -39,29 +39,29 @@
         </a>
 
         <div class="navbar-dropdown is-right is-boxed">
-          <%= live_redirect "Edit Account",
-            to: Routes.account_show_path(@socket, :edit),
+          <%= link "Settings",
+            to: Routes.user_settings_path(@conn_or_socket, :edit),
             class: "navbar-item" %>
           <hr class="navbar-divider">
 
           <%= if @project && @project.id do %>
             <%= live_redirect "Switch Project",
-              to: Routes.project_index_path(@socket, :index),
+              to: Routes.project_index_path(@conn_or_socket, :index),
               class: "navbar-item" %>
             <hr class="navbar-divider">
           <% end %>
 
           <%= link "Log Out",
-            to: Routes.user_session_path(@socket, :delete),
+            to: Routes.user_session_path(@conn_or_socket, :delete),
             method: :delete,
             class: "navbar-item" %>
         </div>
       </div>
 
       <div class="navbar-item">
-        <%= live_component @socket, YowedWeb.AvatarComponent,
-          user: @current_user,
-          size: 32 %>
+        <figure class="image is-32x32">
+          <%= img_tag gravatar_src(@current_user, 64), class: "is-rounded" %>
+        </figure>
       </div>
     </div>
   </div>

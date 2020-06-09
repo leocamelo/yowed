@@ -36,7 +36,7 @@ defmodule YowedWeb.UserRegistrationControllerTest do
       response = html_response(conn, 200)
 
       assert response =~ params.name
-      assert response =~ ">Edit Account</a>"
+      assert response =~ ">Settings</a>"
       assert response =~ ">Log Out</a>"
     end
 

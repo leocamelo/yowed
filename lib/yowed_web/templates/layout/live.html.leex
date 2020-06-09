@@ -1,4 +1,7 @@
-<%= render "_live_menu.html", assigns %>
+<%= render "_menu.html",
+  conn_or_socket: @socket,
+  current_user: @current_user,
+  project: @project %>
 
 <section class="section">
   <div class="container is-fluid">

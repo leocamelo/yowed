@@ -5,7 +5,7 @@ defmodule YowedWeb.TemplateLive.Show do
 
   @impl true
   def mount(_params, session, socket) do
-    layout = {YowedWeb.LayoutView, "blank.html"}
+    layout = {YowedWeb.LayoutView, "live_blank.html"}
     {:ok, assign_defaults(socket, session), layout: layout}
   end
 

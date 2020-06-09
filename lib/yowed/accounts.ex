@@ -91,25 +91,24 @@ defmodule Yowed.Accounts do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for changing the user email.
+  Returns an `%Ecto.Changeset{}` for changing the user profile.
 
   ## Examples
 
-      iex> change_user_email(user)
+      iex> change_user_profile(user)
       %Ecto.Changeset{data: %User{}}
 
   """
-  def change_user_email(user, attrs \\ %{}) do
-    User.email_changeset(user, attrs)
+  def change_user_profile(user, attrs \\ %{}) do
+    User.profile_changeset(user, attrs)
   end
 
   @doc """
-  Updates the user email.
+  Updates the user profile.
   """
-  def update_user_email(user, password, attrs) do
+  def update_user_profile(user, attrs) do
     user
-    |> User.email_changeset(attrs)
-    |> User.validate_current_password(password)
+    |> User.profile_changeset(attrs)
     |> Repo.update()
   end
 
