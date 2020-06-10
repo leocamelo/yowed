@@ -44,20 +44,17 @@ defmodule Yowed.Accounts do
   end
 
   @doc """
-  Gets a single user.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
 
   ## Examples
 
-      iex> get_user!(123)
-      %User{}
-
-      iex> get_user!(456)
-      ** (Ecto.NoResultsError)
+      iex> change_user_registration(user)
+      %Ecto.Changeset{data: %User{}}
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def change_user_registration(%User{} = user, attrs \\ %{}) do
+    User.registration_changeset(user, attrs)
+  end
 
   @doc """
   Registers a user.
@@ -75,19 +72,6 @@ defmodule Yowed.Accounts do
     %User{}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking user changes.
-
-  ## Examples
-
-      iex> change_user_registration(user)
-      %Ecto.Changeset{data: %User{}}
-
-  """
-  def change_user_registration(%User{} = user, attrs \\ %{}) do
-    User.registration_changeset(user, attrs)
   end
 
   @doc """

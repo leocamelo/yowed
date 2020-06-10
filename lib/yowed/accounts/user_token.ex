@@ -36,10 +36,10 @@ defmodule Yowed.Accounts.UserToken do
   """
   def verify_session_token_query(token) do
     query =
-      from token in token_and_context_query(token, "session"),
-        join: user in assoc(token, :user),
-        where: token.inserted_at > ago(@session_validity_in_days, "day"),
-        select: user
+      from t in token_and_context_query(token, "session"),
+        join: u in assoc(t, :user),
+        where: t.inserted_at > ago(@session_validity_in_days, "day"),
+        select: u
 
     {:ok, query}
   end
@@ -77,10 +77,10 @@ defmodule Yowed.Accounts.UserToken do
         days = days_for_context(context)
 
         query =
-          from token in token_and_context_query(hashed_token, context),
-            join: user in assoc(token, :user),
-            where: token.inserted_at > ago(^days, "day") and token.sent_to == user.email,
-            select: user
+          from t in token_and_context_query(hashed_token, context),
+            join: u in assoc(t, :user),
+            where: t.inserted_at > ago(^days, "day") and t.sent_to == u.email,
+            select: u
 
         {:ok, query}
 

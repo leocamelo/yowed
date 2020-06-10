@@ -32,19 +32,6 @@ defmodule Yowed.AccountsTest do
     end
   end
 
-  describe "get_user!/1" do
-    test "raises if id is invalid" do
-      assert_raise Ecto.NoResultsError, fn ->
-        Accounts.get_user!("11111111-1111-1111-1111-111111111111")
-      end
-    end
-
-    test "returns the user with the given id" do
-      %{id: id} = user = insert(:user)
-      assert %User{id: ^id} = Accounts.get_user!(user.id)
-    end
-  end
-
   describe "register_user/1" do
     test "requires name, email and password to be set" do
       {:error, changeset} = Accounts.register_user(%{})
