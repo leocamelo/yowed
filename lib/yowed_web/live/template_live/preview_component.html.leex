@@ -11,19 +11,27 @@
   </p>
 </div>
 
-<div class="tabs is-small is-boxed is-marginless">
+<div class="tabs is-small is-boxed is-marginless"
+     data-target="tabs-template-preview"
+     phx-hook="tabs">
   <ul>
     <li class="is-active"><a>Preview</a></li>
     <li><a>HTML</a></li>
   </ul>
 </div>
 
-<div class="tabs-content template-preview-container is-clipped has-background-white">
-  <style id="template-preview-style" type="text/css" phx-update="ignore"></style>
-  <iframe
-    width="800"
-    class="template-preview"
-    srcdoc="<%= html_escape @template.body_preview %>"
-    phx-hook="templatePreview">
-  </iframe>
+<div id="tabs-template-preview" class="tabs-content has-background-white">
+  <div class="tabs-content-item template-preview-container is-clipped is-active">
+    <style id="template-preview-style" type="text/css" phx-update="ignore"></style>
+    <iframe
+      width="800"
+      class="template-preview"
+      srcdoc="<%= html_escape @template.body_preview %>"
+      phx-hook="templatePreview">
+    </iframe>
+  </div>
+
+  <div class="tabs-content-item">
+    <pre><%= @template.body_preview %></pre>
+  </div>
 </div>

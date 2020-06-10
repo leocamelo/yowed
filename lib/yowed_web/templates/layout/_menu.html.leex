@@ -15,7 +15,7 @@
         role="button"
         aria-label="menu"
         aria-expanded="false"
-        phx-hook="navbarBurger"
+        phx-hook="burger"
         data-target="navbar">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div class="navbar-item">
+      <div class="navbar-item is-hidden-touch">
         <figure class="image is-32x32">
           <%= img_tag gravatar_src(@current_user, 64), class: "is-rounded" %>
         </figure>

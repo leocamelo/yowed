@@ -18,13 +18,15 @@
 
   @media screen and (min-width: 440px), print {
     &.is-small .modal-content {
-      width: 440px;
+      max-width: 440px;
+      width: 100%;
     }
   }
 
   @media screen and (min-width: 840px), print {
     &.is-large .modal-content {
-      width: 840px;
+      max-width: 840px;
+      width: 100%;
     }
   }
 }

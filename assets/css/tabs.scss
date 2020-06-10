@@ -3,3 +3,11 @@
   border-style: solid;
   border-color: $border;
 }
+
+.tabs-content-item {
+  display: none;
+
+  &.is-active {
+    display: block;
+  }
+}

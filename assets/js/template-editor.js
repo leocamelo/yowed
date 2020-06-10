@@ -5,17 +5,18 @@ import 'codemirror/mode/xml/xml';
 export default {
   mounted() {
     const { el } = this;
+    const target = `#${el.form.id}`;
 
-    const codeMirror = CodeMirror.fromTextArea(el, {
+    const editor = CodeMirror.fromTextArea(el, {
       autofocus: true,
       lineNumbers: true,
       mode: 'xml',
       theme: 'material-darker',
     });
 
-    codeMirror.on('change', () => {
-      el.value = codeMirror.getValue();
-      this.pushEventTo(`#${el.form.id}`, 'validate', { template: { body: el.value } });
+    editor.on('change', () => {
+      el.value = editor.getValue();
+      this.pushEventTo(target, 'validate', { template: { body: el.value } });
     });
   },
 };
