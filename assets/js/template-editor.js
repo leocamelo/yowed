@@ -15,7 +15,7 @@ export default {
 
     codeMirror.on('change', () => {
       el.value = codeMirror.getValue();
-      this.pushEventTo('#template-form', 'validate', { template: { body: el.value } });
+      this.pushEventTo(`#${el.form.id}`, 'validate', { template: { body: el.value } });
     });
   },
 };

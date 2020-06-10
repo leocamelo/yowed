@@ -7,10 +7,11 @@ defmodule YowedWeb.ModalComponent do
     title = Keyword.get(assigns.opts, :title)
 
     ~L"""
-    <div id="<%= @id %>" class="modal is-<%= size %> is-active"
+    <div id="<%= @id %>" class="modal is-<%= size %>"
       phx-window-keydown="close"
       phx-key="escape"
       phx-target="#<%= @id %>"
+      phx-hook="modal"
       phx-page-loading>
       <div class="modal-background"></div>
       <div class="modal-content">
@@ -20,10 +21,7 @@ defmodule YowedWeb.ModalComponent do
           <% end %>
           <%= live_component @socket, @component, @opts %>
         </div>
-        <button type="button" class="delete is-medium" aria-label="close"
-          phx-click="close"
-          phx-target="#<%= @id %>">
-        </button>
+        <button type="button" class="delete is-medium" aria-label="close"></button>
       </div>
     </div>
     """

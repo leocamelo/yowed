@@ -6,6 +6,7 @@ import { Socket } from 'phoenix';
 import { LiveSocket } from 'phoenix_live_view';
 
 
+import modal from './modal';
 import navbarBurger from './navbar-burger';
 import templateEditor from './template-editor';
 import templatePreview from './template-preview';
@@ -13,6 +14,7 @@ import toastNotification from './toast-notification';
 
 
 const hooks = {
+  modal,
   navbarBurger,
   templateEditor,
   templatePreview,

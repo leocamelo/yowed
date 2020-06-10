@@ -1,12 +1,31 @@
-@media screen and (min-width: 440px), print {
-  .modal.is-small .modal-content {
-    width: 440px;
-  }
-}
+.modal {
+  display: flex !important;
+  transition: all .2s ease-out;
+  opacity: 0;
 
-@media screen and (min-width: 840px), print {
-  .modal.is-large .modal-content {
-    width: 840px;
+  .modal-content {
+    transition: inherit;
+    margin-top: -50px;
+  }
+
+  &.is-active {
+    opacity: 1;
+
+    .modal-content {
+      margin-top: 0;
+    }
+  }
+
+  @media screen and (min-width: 440px), print {
+    &.is-small .modal-content {
+      width: 440px;
+    }
+  }
+
+  @media screen and (min-width: 840px), print {
+    &.is-large .modal-content {
+      width: 840px;
+    }
   }
 }
 
