@@ -1,25 +1,42 @@
-const makeApplyScale = (parent, window, style, el) => () => {
-  const { documentElement } = window.document;
-  if (!documentElement) return;
+const applyContent = ({ dataset, textContent }) => {
+  const target = document.getElementById(dataset.target);
+  const mirror = document.getElementById(dataset.mirror);
 
-  const scale = Math.min(parent.offsetWidth / el.width, 1);
-  const height = documentElement.scrollHeight;
+  const targetDoc = target.contentWindow.document;
+  targetDoc.write(textContent);
+  targetDoc.close();
 
-  style.textContent = `
-    .template-preview-container{height:${height * scale}px}
-    .template-preview{height:${height}px;transform:scale(${scale})}
-  `;
+  mirror.textContent = textContent;
+
+  return target;
+};
+
+const makeApplyScale = (target) => () => {
+  const { parentNode, contentWindow } = target;
+
+  const scale = Math.min(parentNode.offsetWidth / target.width, 1);
+  const height = contentWindow.document.documentElement.scrollHeight;
+
+  if (scale && height) {
+    parentNode.style.height = `${height * scale}px`;
+    target.style.transform = `scale(${scale})`;
+    target.style.height = `${height}px`;
+  }
 };
 
 export default {
   mounted() {
-    const { el } = this;
-    const { parentNode, contentWindow } = el;
-    const style = parentNode.querySelector('style');
-    const applyScale = makeApplyScale(parentNode, contentWindow, style, el);
+    const target = applyContent(this.el);
+    const applyScale = makeApplyScale(target);
+
+    target.style.transformOrigin = 'top left';
 
     applyScale();
-    el.addEventListener('load', applyScale);
+    target.addEventListener('load', applyScale);
     window.addEventListener('resize', applyScale);
+    window.addEventListener('tabs:update', applyScale);
+  },
+  updated() {
+    applyContent(this.el);
   },
 };

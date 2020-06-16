@@ -12,12 +12,16 @@ export default {
     const target = document.getElementById(el.dataset.target);
 
     const triggers = el.querySelectorAll('li');
-    const contents = target.querySelectorAll('.tabs-content-item');
+    const contents = target.querySelectorAll('.tabs-content');
+
+    const callbackEvent = new Event('tabs:update');
 
     triggers.forEach((trigger, i) => {
       trigger.addEventListener('click', () => {
         triggers.forEach((t, j) => toggle(t, i, j));
         contents.forEach((c, j) => toggle(c, i, j));
+
+        window.dispatchEvent(callbackEvent);
       });
     });
   },
