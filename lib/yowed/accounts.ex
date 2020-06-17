@@ -5,6 +5,8 @@ defmodule Yowed.Accounts do
 
   use Yowed, :context
 
+  alias Ecto.Multi
+
   alias Yowed.Accounts.{User, UserNotifier, UserToken}
 
   ## Database getters
@@ -39,7 +41,7 @@ defmodule Yowed.Accounts do
   """
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
+    user = get_user_by_email(email)
     if User.valid_password?(user, password), do: user
   end
 
@@ -61,14 +63,14 @@ defmodule Yowed.Accounts do
 
   ## Examples
 
-      iex> register_user(%{field: value})
+      iex> create_user_registration(%{field: value})
       {:ok, %User{}}
 
-      iex> register_user(%{field: bad_value})
+      iex> create_user_registration(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def register_user(attrs) do
+  def create_user_registration(attrs) do
     %User{}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
@@ -127,9 +129,9 @@ defmodule Yowed.Accounts do
       |> User.password_changeset(attrs)
       |> User.validate_current_password(password)
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+    Multi.new()
+    |> Multi.update(:user, changeset)
+    |> Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
@@ -212,9 +214,9 @@ defmodule Yowed.Accounts do
 
   """
   def reset_user_password(user, attrs) do
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+    Multi.new()
+    |> Multi.update(:user, User.password_changeset(user, attrs))
+    |> Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}

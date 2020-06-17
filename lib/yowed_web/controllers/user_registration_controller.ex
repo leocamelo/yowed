@@ -11,7 +11,7 @@ defmodule YowedWeb.UserRegistrationController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Accounts.register_user(user_params) do
+    case Accounts.create_user_registration(user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully")

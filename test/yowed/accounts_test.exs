@@ -32,9 +32,9 @@ defmodule Yowed.AccountsTest do
     end
   end
 
-  describe "register_user/1" do
+  describe "create_user_registration/1" do
     test "requires name, email and password to be set" do
-      {:error, changeset} = Accounts.register_user(%{})
+      {:error, changeset} = Accounts.create_user_registration(%{})
 
       assert %{
                password: ["can't be blank"],
@@ -44,7 +44,8 @@ defmodule Yowed.AccountsTest do
     end
 
     test "validates email and password when given" do
-      {:error, changeset} = Accounts.register_user(%{email: "invalid", password: "invalid"})
+      {:error, changeset} =
+        Accounts.create_user_registration(%{email: "invalid", password: "invalid"})
 
       assert %{
                email: ["must have the @ sign and no spaces"],
@@ -56,7 +57,7 @@ defmodule Yowed.AccountsTest do
       too_long = String.duplicate("db", 100)
 
       {:error, changeset} =
-        Accounts.register_user(%{name: too_long, email: too_long, password: too_long})
+        Accounts.create_user_registration(%{name: too_long, email: too_long, password: too_long})
 
       assert "should be at most 160 character(s)" in errors_on(changeset).name
       assert "should be at most 160 character(s)" in errors_on(changeset).email
@@ -65,17 +66,17 @@ defmodule Yowed.AccountsTest do
 
     test "validates email uniqueness" do
       %{email: email} = insert(:user)
-      {:error, changeset} = Accounts.register_user(%{email: email})
+      {:error, changeset} = Accounts.create_user_registration(%{email: email})
 
       assert "has already been taken" in errors_on(changeset).email
 
-      {:error, changeset} = Accounts.register_user(%{email: String.upcase(email)})
+      {:error, changeset} = Accounts.create_user_registration(%{email: String.upcase(email)})
       assert "has already been taken" in errors_on(changeset).email
     end
 
     test "registers users with a hashed password" do
       params = params_for(:user) |> Map.put(:password, "ultrasecretpassword")
-      {:ok, user} = Accounts.register_user(params)
+      {:ok, user} = Accounts.create_user_registration(params)
 
       assert user.email == params.email
       assert is_binary(user.name)
