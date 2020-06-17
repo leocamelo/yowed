@@ -18,7 +18,7 @@ defmodule YowedWeb.TemplateLiveTest do
         |> login_user(project.user)
         |> live(Routes.template_index_path(conn, :index, project))
 
-      assert html =~ "Templates"
+      assert html =~ ">Templates</h1>"
       assert html =~ template.name
     end
 
@@ -28,7 +28,7 @@ defmodule YowedWeb.TemplateLiveTest do
 
       assert index_live
              |> element("a", "Create a new template")
-             |> render_click() =~ "New template"
+             |> render_click() =~ ">New template</h2>"
 
       assert_patch(index_live, Routes.template_index_path(conn, :new, project))
 
@@ -47,23 +47,38 @@ defmodule YowedWeb.TemplateLiveTest do
     end
 
     test "displays template", %{conn: conn, project: project, template: template} do
-      {:ok, _show_live, html} =
+      {:ok, index_live, _html} =
         conn
         |> login_user(project.user)
-        |> live(Routes.template_index_path(conn, :preview, project, template))
+        |> live(Routes.template_index_path(conn, :index, project))
 
-      assert html =~ template.name
+      assert index_live
+             |> element("#template-#{template.id} a", "Preview")
+             |> render_click() =~ template.subject
+
+      assert_patch(index_live, Routes.template_index_path(conn, :preview, project, template))
     end
 
-    test "deletes template in listing", %{conn: conn, project: project, template: template} do
+    test "deletes template", %{conn: conn, project: project, template: template} do
       conn = login_user(conn, project.user)
-      {:ok, index_live, _html} = live(conn, Routes.template_index_path(conn, :index, project))
+
+      {:ok, index_live, _html} =
+        live(conn, Routes.template_index_path(conn, :delete, project, template))
 
       assert index_live
              |> element("#template-#{template.id} a", "Delete")
-             |> render_click()
+             |> render_click() =~ ">Are you sure?</h2>"
 
-      refute has_element?(index_live, "#template-#{template.id}")
+      assert_patch(index_live, Routes.template_index_path(conn, :delete, project, template))
+
+      {:ok, _, html} =
+        index_live
+        |> element("button", "Delete")
+        |> render_click()
+        |> follow_redirect(conn)
+
+      assert html =~ "Template deleted successfully"
+      refute html =~ template.id
     end
   end
 

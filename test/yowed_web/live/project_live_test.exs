@@ -31,7 +31,7 @@ defmodule YowedWeb.ProjectLiveTest do
 
       assert index_live
              |> element("a", "create a new one")
-             |> render_click() =~ "New project"
+             |> render_click() =~ ">New project</h2>"
 
       assert_patch(index_live, Routes.project_index_path(conn, :new))
 
@@ -68,7 +68,7 @@ defmodule YowedWeb.ProjectLiveTest do
 
       assert show_live
              |> element("a", "Edit project")
-             |> render_click() =~ "Edit project"
+             |> render_click() =~ ">Edit project</h2>"
 
       assert_patch(show_live, Routes.project_show_path(conn, :edit, project))
 

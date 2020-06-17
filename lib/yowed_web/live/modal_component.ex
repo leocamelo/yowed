@@ -21,14 +21,17 @@ defmodule YowedWeb.ModalComponent do
           <% end %>
           <%= live_component @socket, @component, @opts %>
         </div>
-        <button type="button" class="delete is-medium" aria-label="close"></button>
+        <button type="button"
+          class="close delete is-medium"
+          aria-label="close">
+        </button>
       </div>
     </div>
     """
   end
 
   @impl true
-  def handle_event("close", _, socket) do
+  def handle_event("close", _params, socket) do
     {:noreply, push_patch(socket, to: socket.assigns.return_to)}
   end
 end

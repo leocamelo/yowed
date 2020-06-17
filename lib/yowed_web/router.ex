@@ -62,6 +62,7 @@ defmodule YowedWeb.Router do
     live "/:project_id/templates", TemplateLive.Index, :index
     live "/:project_id/templates/new", TemplateLive.Index, :new
     live "/:project_id/templates/:id", TemplateLive.Index, :preview
+    live "/:project_id/templates/:id/delete", TemplateLive.Index, :delete
     live "/:project_id/templates/:id/edit", TemplateLive.Show, :edit
   end
 end

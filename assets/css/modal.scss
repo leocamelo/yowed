@@ -31,6 +31,10 @@
   }
 }
 
+.modal-background {
+  background-color: bulmaRgba($scheme-invert, .43);
+}
+
 .modal-content > .delete {
   position: absolute;
   top: 20px;

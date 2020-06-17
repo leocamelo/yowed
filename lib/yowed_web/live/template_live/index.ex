@@ -14,34 +14,17 @@ defmodule YowedWeb.TemplateLive.Index do
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
-  end
-
-  defp apply_action(socket, :index, _params) do
-    assign(socket, :page_title, "Templates")
-  end
-
-  defp apply_action(socket, :new, _params) do
-    assign(socket, :page_title, "New template")
-  end
-
-  defp apply_action(socket, :preview, %{"id" => id}) do
+  def handle_params(%{"id" => id}, _url, socket) do
     template = Crafts.get_template!(socket.assigns.project, id)
 
-    socket
-    |> assign(:page_title, "Template preview")
-    |> assign(:template, template)
+    {:noreply,
+     socket
+     |> assign(:template, template)
+     |> assign(:page_title, page_title(socket.assigns.live_action))}
   end
 
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    {:ok, _} =
-      socket.assigns.project
-      |> Crafts.get_template!(id)
-      |> Crafts.delete_template()
-
-    {:noreply, assign(socket, :templates, list_templates(socket))}
+  def handle_params(_params, _url, socket) do
+    {:noreply, assign(socket, :page_title, page_title(socket.assigns.live_action))}
   end
 
   defp assign_project(socket, project_id) do
@@ -52,4 +35,9 @@ defmodule YowedWeb.TemplateLive.Index do
   defp list_templates(socket) do
     Crafts.list_templates(socket.assigns.project)
   end
+
+  defp page_title(:index), do: "Templates"
+  defp page_title(:new), do: "New template"
+  defp page_title(:preview), do: "Template preview"
+  defp page_title(:delete), do: "Delete template"
 end

@@ -16,11 +16,8 @@
       to: Routes.template_show_path(@socket, :edit, @project, @template),
       class: "card-footer-item" %>
 
-    <%= link "Delete",
-      to: "#",
-      class: "card-footer-item",
-      phx_click: "delete",
-      phx_value_id: @template.id,
-      data: [confirm: "Are you sure?"] %>
+    <%= live_patch "Delete",
+      to: Routes.template_index_path(@socket, :delete, @project, @template),
+      class: "card-footer-item" %>
   </footer>
 </article>

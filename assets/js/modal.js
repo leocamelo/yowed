@@ -10,9 +10,11 @@ export default {
 
     setTimeout(turnOn, openDelay);
 
-    el.querySelector('.delete').addEventListener('click', () => {
-      turnOff();
-      setTimeout(() => this.pushEventTo(`#${el.id}`, 'close'), closeDelay);
+    el.querySelectorAll('.close').forEach((close) => {
+      close.addEventListener('click', () => {
+        turnOff();
+        setTimeout(() => this.pushEventTo(`#${el.id}`, 'close'), closeDelay);
+      });
     });
   },
 };

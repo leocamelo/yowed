@@ -1,0 +1,24 @@
+<div class="content">
+  <p>
+    You're about to delete the
+    <strong><%= @template.name %></strong>
+    template. Confirm this action?
+  </p>
+</div>
+
+<div class="columns is-gapless field is-grouped">
+  <div class="column control">
+    <button type="button"
+            class="button is-danger is-fullwidth"
+            phx-click="delete"
+            phx-target="<%= @myself %>">
+      Delete
+    </button>
+  </div>
+
+  <div class="column control">
+    <button type="button" class="close button is-light is-fullwidth">
+      Cancel
+    </button>
+  </div>
+</div>

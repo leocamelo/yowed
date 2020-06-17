@@ -63,3 +63,12 @@
     template: @template,
     return_to: Routes.template_index_path(@socket, :index, @project) %>
 <% end %>
+
+<%= if @live_action == :delete do %>
+  <%= live_modal @socket, YowedWeb.TemplateLive.DialogDeleteComponent,
+    id: @template.id,
+    title: "Are you sure?",
+    size: :small,
+    template: @template,
+    return_to: Routes.template_index_path(@socket, :index, @project) %>
+<% end %>
