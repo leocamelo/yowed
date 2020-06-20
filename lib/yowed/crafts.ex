@@ -6,7 +6,7 @@ defmodule Yowed.Crafts do
   use Yowed, :context
 
   alias Yowed.Accounts.User
-  alias Yowed.Crafts.{Project, Template}
+  alias Yowed.Crafts.{Message, Project, Template}
 
   @doc """
   Returns the list of projects by user.
@@ -208,5 +208,85 @@ defmodule Yowed.Crafts do
   """
   def change_template(%Template{} = template, attrs \\ %{}) do
     Template.changeset(template, attrs)
+  end
+
+  @doc """
+  Returns the list of messages by project.
+
+  ## Examples
+
+      iex> list_messages(project)
+      [%Message{}, ...]
+  """
+  def list_messages(%Project{} = project) do
+    Repo.all(
+      from m in Message,
+        select: [:id, :subject, :status, :inserted_at],
+        where: m.project_id == ^project.id,
+        order_by: [desc: :inserted_at]
+    )
+  end
+
+  @doc """
+  Gets a single message by project and id.
+
+  Raises `Ecto.NoResultsError` if the Message does not exist.
+
+  ## Examples
+
+      iex> get_message!(project, 123)
+      %Message{}
+
+      iex> get_message!(project, 456)
+      ** (Ecto.NoResultsError)
+  """
+  def get_message!(%Project{} = project, id) do
+    Repo.get_by!(Message, project_id: project.id, id: id)
+  end
+
+  @doc """
+  Creates a message.
+
+  ## Examples
+
+      iex> create_message(template, %{field: value})
+      {:ok, %Message{}}
+
+      iex> create_message(template, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+  """
+  def create_message(%Template{} = template, attrs \\ %{}) do
+    %Message{project_id: template.project_id, template_id: template.id}
+    |> Message.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a message.
+
+  ## Examples
+
+      iex> update_message(message, %{field: new_value})
+      {:ok, %Message{}}
+
+      iex> update_message(message, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+  """
+  def update_message(%Message{} = message, attrs) do
+    message
+    |> Message.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking message changes.
+
+  ## Examples
+
+      iex> change_message(message)
+      %Ecto.Changeset{data: %Message{}}
+  """
+  def change_message(%Message{} = message, attrs \\ %{}) do
+    Message.changeset(message, attrs)
   end
 end

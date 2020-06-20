@@ -1,7 +1,7 @@
 defmodule Yowed.Crafts.Template do
   use Yowed, :schema
 
-  alias Yowed.Crafts.{Contact, Project, Template}
+  alias Yowed.Crafts.{Contact, Message, Project}
   alias Yowed.Embed
 
   schema "templates" do
@@ -11,15 +11,17 @@ defmodule Yowed.Crafts.Template do
     field :body, :string
     field :body_preview, :string
 
-    embeds_one(:from, Contact, on_replace: :update)
+    embeds_one :from, Contact, on_replace: :update
 
-    belongs_to(:project, Project)
+    belongs_to :project, Project
+
+    has_many :messages, Message
 
     timestamps()
   end
 
   @doc false
-  def changeset(%Template{} = template, attrs) do
+  def changeset(%__MODULE__{} = template, attrs) do
     template
     |> cast(attrs, [:name, :body, :subject])
     |> validate_required([:project_id, :name])

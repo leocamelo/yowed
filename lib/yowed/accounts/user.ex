@@ -11,7 +11,7 @@ defmodule Yowed.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
 
-    has_many(:projects, Project)
+    has_many :projects, Project
 
     timestamps()
   end
@@ -24,7 +24,7 @@ defmodule Yowed.Accounts.User do
   could lead to unpredictable or insecure behaviour. Long passwords may
   also be very expensive to hash for certain algorithms.
   """
-  def registration_changeset(user, attrs) do
+  def registration_changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, [:name, :email, :password])
     |> validate_name()
@@ -67,7 +67,7 @@ defmodule Yowed.Accounts.User do
 
   It requires the email to change otherwise an error is added.
   """
-  def profile_changeset(user, attrs) do
+  def profile_changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, [:name, :email])
     |> validate_name()
@@ -77,7 +77,7 @@ defmodule Yowed.Accounts.User do
   @doc """
   A user changeset for changing the password.
   """
-  def password_changeset(user, attrs) do
+  def password_changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, [:password])
     |> validate_confirmation(:password, message: "does not match password")

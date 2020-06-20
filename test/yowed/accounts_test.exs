@@ -1,6 +1,8 @@
 defmodule Yowed.AccountsTest do
   use Yowed.DataCase
 
+  alias Ecto.Changeset
+
   alias Yowed.Accounts
   alias Yowed.Accounts.{User, UserToken}
 
@@ -87,14 +89,14 @@ defmodule Yowed.AccountsTest do
 
   describe "change_user_registration/2" do
     test "returns a changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
+      assert %Changeset{} = changeset = Accounts.change_user_registration(%User{})
       assert changeset.required == [:password, :email, :name]
     end
   end
 
   describe "change_user_profile/2" do
     test "returns a user changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_profile(%User{})
+      assert %Changeset{} = changeset = Accounts.change_user_profile(%User{})
       assert changeset.required == [:email, :name]
     end
   end
@@ -139,7 +141,7 @@ defmodule Yowed.AccountsTest do
 
   describe "change_user_password/2" do
     test "returns a user changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_password(%User{})
+      assert %Changeset{} = changeset = Accounts.change_user_password(%User{})
       assert changeset.required == [:password]
     end
   end
