@@ -44,6 +44,7 @@ defmodule YowedWeb.TemplateLiveTest do
 
       assert html =~ "Template created successfully"
       assert html =~ "some name"
+      assert html =~ "Hello World"
     end
 
     test "displays template", %{conn: conn, project: project, template: template} do

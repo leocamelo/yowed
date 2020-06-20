@@ -27,7 +27,7 @@ defmodule YowedWeb.TemplateLive.FormNewComponent do
   end
 
   def handle_event("save", %{"template" => template_params}, socket) do
-    case Crafts.create_template(socket.assigns.project, template_params) do
+    case Crafts.create_template(socket.assigns.project, put_default_body(template_params)) do
       {:ok, template} ->
         {:noreply,
          socket
@@ -39,5 +39,27 @@ defmodule YowedWeb.TemplateLive.FormNewComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  defp put_default_body(params) do
+    params
+    |> Map.put(
+      "body",
+      String.trim("""
+      <mjml>
+        <mj-body>
+          <mj-section>
+            <mj-column>
+              <mj-image width="100px" src="https://mjml.io/assets/img/logo-small.png"></mj-image>
+
+              <mj-divider border-color="#F45E43"></mj-divider>
+
+              <mj-text font-size="20px" color="#F45E43">Hello World</mj-text>
+            </mj-column>
+          </mj-section>
+        </mj-body>
+      </mjml>
+      """)
+    )
   end
 end

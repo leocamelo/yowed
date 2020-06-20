@@ -1,14 +1,25 @@
+<div class="content is-size-7 has-text-grey">
+  ID: <code><%= @template.id %></code>
+</div>
+
 <div class="content">
-  <p>
-    <strong>Subject:</strong>
-    <%= @template.subject %>
-  </p>
-  <p>
-    <strong>From:</strong>
-    <%= if @template.from && @template.from.email do %>
-      <%= @template.from.name %> &lt;<%= @template.from.email %>&gt;
-    <% end %>
-  </p>
+  <%= if @template.subject do %>
+    <p>
+      <strong>Subject:</strong>
+      <%= @template.subject %>
+    </p>
+  <% end %>
+
+  <%= if @template.from && @template.from.email do %>
+    <p>
+      <strong>From:</strong>
+      <%= if @template.from.name do %>
+        <%= @template.from.name %> &lt;<%= @template.from.email %>&gt;
+      <% else %>
+        <%= @template.from.email %>
+      <% end %>
+    </p>
+  <% end %>
 </div>
 
 <div id="tabs-template-preview-container" phx-update="ignore">

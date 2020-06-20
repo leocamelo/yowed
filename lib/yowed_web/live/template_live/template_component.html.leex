@@ -1,23 +1,44 @@
 <article id="template-<%= @template.id %>" class="card">
   <main class="card-content">
-    <h3 class="subtitle"><%= @template.name %></h3>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h3 class="subtitle"><%= @template.name %></h3>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <div class="buttons is-marginless has-addons">
+            <%= live_redirect "Edit",
+              to: Routes.template_show_path(@socket, :edit, @project, @template),
+              class: "button is-small is-light is-marginless" %>
+
+            <div class="dropdown is-right is-hoverable">
+              <div class="dropdown-trigger">
+                <button type="button"
+                        class="button is-small is-light is-marginless"
+                        aria-haspopup="true"
+                        aria-controls="dropdown-<%= @template.id %>">+</button>
+              </div>
+              <div id="dropdown-<%= @template.id %>" class="dropdown-menu" role="menu">
+                <div class="dropdown-content has-background-light">
+                  <%= live_patch "Preview",
+                    to: Routes.template_index_path(@socket, :preview, @project, @template),
+                    class: "dropdown-item is-size-7" %>
+
+                  <%= live_patch "Delete",
+                    to: Routes.template_index_path(@socket, :delete, @project, @template),
+                    class: "dropdown-item is-size-7" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="content is-size-7 has-text-grey">
-      <p>ID: <code><%= @template.id %></code>
+      ID: <code><%= @template.id %></code>
     </div>
   </main>
-
-  <footer class="card-footer">
-    <%= live_patch "Preview",
-      to: Routes.template_index_path(@socket, :preview, @project, @template),
-      class: "card-footer-item" %>
-
-    <%= live_redirect "Edit",
-      to: Routes.template_show_path(@socket, :edit, @project, @template),
-      class: "card-footer-item" %>
-
-    <%= live_patch "Delete",
-      to: Routes.template_index_path(@socket, :delete, @project, @template),
-      class: "card-footer-item" %>
-  </footer>
 </article>

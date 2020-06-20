@@ -1,0 +1,16 @@
+.card {
+  .dropdown-trigger {
+    margin-left: 3px;
+  }
+
+  .dropdown-menu {
+    min-width: 0;
+  }
+
+  .dropdown-content.has-background-light {
+    .dropdown-item:hover,
+    .dropdown-item:active {
+      background-color: #eee;
+    }
+  }
+}

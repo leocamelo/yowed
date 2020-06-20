@@ -13,6 +13,7 @@ const applyContent = ({ dataset, textContent }) => {
 
 const makeApplyScale = (target) => () => {
   const { parentNode, contentWindow } = target;
+  if (!contentWindow) return;
 
   const scale = Math.min(parentNode.offsetWidth / target.width, 1);
   const height = contentWindow.document.documentElement.scrollHeight;
