@@ -1,6 +1,6 @@
 <%= if info = live_flash(@flash, :info) do %>
   <div class="toast-container is-unselectable">
-    <div class="toast notification is-info" role="alert" phx-hook="toastNotification">
+    <div id="toast-hook" class="toast notification is-info" role="alert" phx-hook="toast">
       <%= info %>
     </div>
   </div>
@@ -8,7 +8,7 @@
 
 <%= if error = live_flash(@flash, :error) do %>
   <div class="toast-container is-unselectable">
-    <div class="toast notification is-danger" role="alert" phx-hook="toastNotification">
+    <div id="toast-hook" class="toast notification is-danger" role="alert" phx-hook="toast">
       <%= error %>
     </div>
   </div>

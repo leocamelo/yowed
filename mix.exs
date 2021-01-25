@@ -27,23 +27,23 @@ defmodule Yowed.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5"},
-      {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.4"},
+      {:phoenix_ecto, "~> 4.2"},
+      {:ecto_sql, "~> 3.5"},
       {:postgrex, "~> 0.15"},
-      {:phoenix_live_view, "~> 0.14"},
-      {:floki, ">= 0.0.0", only: :test},
-      {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.2"},
-      {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"},
-      {:bcrypt_elixir, "~> 2.0"},
-      {:gettext, "~> 0.11"},
+      {:phoenix_live_view, "~> 0.15"},
+      {:floki, "~> 0.29", only: :test},
+      {:phoenix_html, "~> 2.14"},
+      {:phoenix_live_reload, "~> 1.3", only: :dev},
+      {:phoenix_live_dashboard, "~> 0.4"},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 0.5"},
+      {:bcrypt_elixir, "~> 2.3"},
+      {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.3"},
-      {:nodejs, "~> 1.1"},
-      {:ex_machina, "~> 2.4", only: :test},
-      {:credo, "~> 1.4", only: :dev, runtime: false}
+      {:plug_cowboy, "~> 2.4"},
+      {:nodejs, "~> 2.0"},
+      {:ex_machina, "~> 2.5", only: :test},
+      {:credo, "~> 1.5", only: :dev, runtime: false}
     ]
   end
 

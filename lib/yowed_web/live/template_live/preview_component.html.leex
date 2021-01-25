@@ -23,7 +23,7 @@
 </div>
 
 <div id="tabs-template-preview-container" phx-update="ignore">
-  <div class="tabs is-small is-marginless" phx-hook="tabs" data-target="tabs-template-preview">
+  <div id="tabs-hook" class="tabs is-small is-marginless" phx-hook="tabs" data-target="tabs-template-preview">
     <ul>
       <li class="is-active"><a>Preview</a></li>
       <li><a>HTML</a></li>
@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<div class="is-hidden"
+<div id="template-preview-hook" class="is-hidden"
      phx-hook="templatePreview"
      data-target="template-preview"
      data-mirror="template-preview-html">

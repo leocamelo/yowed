@@ -11,7 +11,7 @@ import burger from './burger';
 import tabs from './tabs';
 import templateEditor from './template-editor';
 import templatePreview from './template-preview';
-import toastNotification from './toast-notification';
+import toast from './toast';
 
 
 const hooks = {
@@ -20,7 +20,7 @@ const hooks = {
   tabs,
   templateEditor,
   templatePreview,
-  toastNotification,
+  toast,
 };
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
