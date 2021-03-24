@@ -31,7 +31,7 @@ defmodule Yowed.MixProject do
       {:ecto_sql, "~> 3.5"},
       {:postgrex, "~> 0.15"},
       {:phoenix_live_view, "~> 0.15"},
-      {:floki, "~> 0.29", only: :test},
+      {:floki, "~> 0.30", only: :test},
       {:phoenix_html, "~> 2.14"},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4"},
@@ -42,7 +42,7 @@ defmodule Yowed.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.4"},
       {:nodejs, "~> 2.0"},
-      {:ex_machina, "~> 2.5", only: :test},
+      {:ex_machina, "~> 2.7", only: :test},
       {:credo, "~> 1.5", only: :dev, runtime: false}
     ]
   end
