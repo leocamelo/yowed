@@ -34,7 +34,7 @@ defmodule YowedWeb.TemplateLiveTest do
 
       assert index_live
              |> form("#template-form", template: %{name: nil})
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         index_live
@@ -94,7 +94,7 @@ defmodule YowedWeb.TemplateLiveTest do
 
       assert show_live
              |> form("#template-form", template: %{name: nil, body: nil})
-             |> render_change() =~ "can&apos;t be blank"
+             |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         show_live
