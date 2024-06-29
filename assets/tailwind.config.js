@@ -11,13 +11,6 @@ module.exports = {
     "../lib/yowed_web.ex",
     "../lib/yowed_web/**/*.*ex"
   ],
-  theme: {
-    extend: {
-      colors: {
-        brand: "#FD4F00",
-      }
-    },
-  },
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
