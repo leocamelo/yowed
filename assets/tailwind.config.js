@@ -11,6 +11,12 @@ module.exports = {
     "../lib/yowed_web.ex",
     "../lib/yowed_web/**/*.*ex"
   ],
+  theme: {
+    container: {
+      center: true,
+      padding: "2rem"
+    }
+  },
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
