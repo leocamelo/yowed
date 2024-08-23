@@ -85,6 +85,7 @@ defmodule YowedWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import YowedWeb.CoreComponents
+      import YowedWeb.MyComponents
       import YowedWeb.Gettext
 
       # Shortcut for generating JS commands

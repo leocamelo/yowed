@@ -1,45 +1,56 @@
-<header class="navbar bg-primary text-primary-content">
+<header class="navbar bg-base-100 shadow">
   <div class="container">
     <div class="flex-1">
-      <.link href={~p"/"} class="text-xl font-semibold">
+      <.link href={~p"/"} class="text-xl text-primary">
         Yowed
       </.link>
     </div>
     <nav class="flex-none">
-      <ul class="menu menu-horizontal">
-        <%= if @current_user do %>
+      <%= if @current_user do %>
+        <div class="dropdown dropdown-end dropdown-hover">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full">
+              <.gravatar email={@current_user.email} alt={@current_user.name} />
+            </div>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] p-2 shadow">
+            <li>
+              <small class="pointer-events-none whitespace-nowrap opacity-50 text-xs">
+                Signed in as<br><%= @current_user.email %>
+              </small>
+            </li>
+            <li>
+              <.link navigate={~p"/settings"}>
+                <.icon name="hero-cog-mini" class="h-4 w-4" />
+                Settings
+              </.link>
+            </li>
+            <li>
+              <.link href={~p"/logout"} method="delete">
+                <.icon name="hero-power-mini" class="h-4 w-4" />
+                Log Out
+              </.link>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <ul class="menu menu-horizontal px-1">
           <li>
-            <%= @current_user.email %>
-          </li>
-          <li>
-            <.link href={~p"/users/settings"}>
-              Settings
+            <.link navigate={~p"/signup"}>
+              Sign Up
             </.link>
           </li>
           <li>
-            <.link href={~p"/users/log_out"} method="delete">
-              Log out
+            <.link navigate={~p"/login"}>
+              Log In
             </.link>
           </li>
-        <% else %>
-          <li>
-            <.link href={~p"/users/register"}>
-              Register
-            </.link>
-          </li>
-          <li>
-            <.link href={~p"/users/log_in"}>
-              Log in
-            </.link>
-          </li>
-        <% end %>
-      </ul>
+        </ul>
+      <% end %>
     </nav>
   </div>
 </header>
-<main class="px-4 py-20 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-2xl">
-    <.flash_group flash={@flash} />
-    <%= @inner_content %>
-  </div>
+<main class="container py-20">
+  <.flash_group flash={@flash} />
+  <%= @inner_content %>
 </main>
